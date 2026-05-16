@@ -16,7 +16,8 @@
       "bgColor": "sage",
       "tags": [],
       "createdAt": 1715500000000,
-      "modifiedAt": 1715500000000
+      "modifiedAt": 1715500000000,
+      "locked": true
     },
     {
       "id": "note_title",
@@ -34,7 +35,8 @@
       ],
       "pinned": true,
       "createdAt": 1715500000000,
-      "modifiedAt": 1715500000000
+      "modifiedAt": 1715500000000,
+      "locked": true
     },
     {
       "id": "img_block_diagram",
@@ -49,7 +51,8 @@
       ],
       "noteItemId": "note_block_explain",
       "createdAt": 1715500000000,
-      "modifiedAt": 1715500000000
+      "modifiedAt": 1715500000000,
+      "locked": true
     },
     {
       "id": "note_block_explain",
@@ -66,7 +69,8 @@
       ],
       "linkedImageId": "img_block_diagram",
       "createdAt": 1715500000000,
-      "modifiedAt": 1715500000000
+      "modifiedAt": 1715500000000,
+      "locked": true
     },
     {
       "id": "note_specs_table",
@@ -83,7 +87,8 @@
         "spec"
       ],
       "createdAt": 1715500000000,
-      "modifiedAt": 1715500000000
+      "modifiedAt": 1715500000000,
+      "locked": true
     },
     {
       "id": "frame_power",
@@ -95,7 +100,8 @@
       "bgColor": "sky",
       "tags": [],
       "createdAt": 1715500100000,
-      "modifiedAt": 1715500100000
+      "modifiedAt": 1715500100000,
+      "locked": true
     },
     {
       "id": "img_power_tree",
@@ -109,7 +115,8 @@
         "power"
       ],
       "createdAt": 1715500100000,
-      "modifiedAt": 1715500100000
+      "modifiedAt": 1715500100000,
+      "locked": true
     },
     {
       "id": "note_regulator",
@@ -126,7 +133,8 @@
         "design"
       ],
       "createdAt": 1715500100000,
-      "modifiedAt": 1715500100000
+      "modifiedAt": 1715500100000,
+      "locked": true
     },
     {
       "id": "action_ripple",
@@ -145,7 +153,8 @@
         "power"
       ],
       "createdAt": 1715500100000,
-      "modifiedAt": 1715500100000
+      "modifiedAt": 1715500100000,
+      "locked": true
     },
     {
       "id": "note_battery_life",
@@ -161,7 +170,8 @@
         "power"
       ],
       "createdAt": 1715500100000,
-      "modifiedAt": 1715500100000
+      "modifiedAt": 1715500100000,
+      "locked": true
     },
     {
       "id": "frame_mcu",
@@ -173,7 +183,8 @@
       "bgColor": "peach",
       "tags": [],
       "createdAt": 1715500200000,
-      "modifiedAt": 1715500200000
+      "modifiedAt": 1715500200000,
+      "locked": true
     },
     {
       "id": "img_pin_map",
@@ -187,7 +198,8 @@
         "mcu"
       ],
       "createdAt": 1715500200000,
-      "modifiedAt": 1715500200000
+      "modifiedAt": 1715500200000,
+      "locked": true
     },
     {
       "id": "note_i2c_map",
@@ -204,7 +216,8 @@
         "interfaces"
       ],
       "createdAt": 1715500200000,
-      "modifiedAt": 1715500200000
+      "modifiedAt": 1715500200000,
+      "locked": true
     },
     {
       "id": "action_strapping",
@@ -223,7 +236,8 @@
         "mcu"
       ],
       "createdAt": 1715500200000,
-      "modifiedAt": 1715500200000
+      "modifiedAt": 1715500200000,
+      "locked": true
     },
     {
       "id": "note_interface_config",
@@ -241,7 +255,8 @@
       ],
       "collapsed": true,
       "createdAt": 1715500200000,
-      "modifiedAt": 1715500200000
+      "modifiedAt": 1715500200000,
+      "locked": true
     },
     {
       "id": "frame_bom",
@@ -253,7 +268,8 @@
       "bgColor": "lavender",
       "tags": [],
       "createdAt": 1715500300000,
-      "modifiedAt": 1715500300000
+      "modifiedAt": 1715500300000,
+      "locked": true
     },
     {
       "id": "note_bom_table",
@@ -270,7 +286,8 @@
         "sourcing"
       ],
       "createdAt": 1715500300000,
-      "modifiedAt": 1715500300000
+      "modifiedAt": 1715500300000,
+      "locked": true
     },
     {
       "id": "action_leadtime",
@@ -289,7 +306,8 @@
         "bom"
       ],
       "createdAt": 1715500300000,
-      "modifiedAt": 1715500300000
+      "modifiedAt": 1715500300000,
+      "locked": true
     },
     {
       "id": "note_vendor_status",
@@ -306,7 +324,8 @@
         "sourcing"
       ],
       "createdAt": 1715500300000,
-      "modifiedAt": 1715500300000
+      "modifiedAt": 1715500300000,
+      "locked": true
     },
     {
       "id": "note_cost_summary",
@@ -324,7 +343,8 @@
       ],
       "collapsed": true,
       "createdAt": 1715500300000,
-      "modifiedAt": 1715500300000
+      "modifiedAt": 1715500300000,
+      "locked": true
     },
     {
       "id": "frame_testing",
@@ -336,7 +356,8 @@
       "bgColor": "pink",
       "tags": [],
       "createdAt": 1715500400000,
-      "modifiedAt": 1715500400000
+      "modifiedAt": 1715500400000,
+      "locked": true
     },
     {
       "id": "note_review",
@@ -353,7 +374,8 @@
         "review"
       ],
       "createdAt": 1715500400000,
-      "modifiedAt": 1715500400000
+      "modifiedAt": 1715500400000,
+      "locked": true
     },
     {
       "id": "note_test_plan",
@@ -369,7 +391,8 @@
         "testing"
       ],
       "createdAt": 1715500400000,
-      "modifiedAt": 1715500400000
+      "modifiedAt": 1715500400000,
+      "locked": true
     },
     {
       "id": "action_proto_order",
@@ -387,7 +410,8 @@
         "testing"
       ],
       "createdAt": 1715500400000,
-      "modifiedAt": 1715500450000
+      "modifiedAt": 1715500450000,
+      "locked": true
     },
     {
       "id": "action_alex_driver",
@@ -406,7 +430,8 @@
         "testing"
       ],
       "createdAt": 1715500400000,
-      "modifiedAt": 1715500400000
+      "modifiedAt": 1715500400000,
+      "locked": true
     },
     {
       "id": "action_drc",
@@ -425,7 +450,8 @@
         "review"
       ],
       "createdAt": 1715500400000,
-      "modifiedAt": 1715500400000
+      "modifiedAt": 1715500400000,
+      "locked": true
     },
     {
       "id": "note_quickref",
@@ -442,7 +468,8 @@
       ],
       "pinned": true,
       "createdAt": 1715500000000,
-      "modifiedAt": 1715500000000
+      "modifiedAt": 1715500000000,
+      "locked": true
     },
     {
       "id": "img_pcb_outline",
@@ -457,7 +484,8 @@
         "review"
       ],
       "createdAt": 1715500400000,
-      "modifiedAt": 1715500400000
+      "modifiedAt": 1715500400000,
+      "locked": true
     },
     {
       "id": "frame_references",
@@ -469,7 +497,8 @@
       "bgColor": "cream",
       "tags": [],
       "createdAt": 1715500500000,
-      "modifiedAt": 1715500500000
+      "modifiedAt": 1715500500000,
+      "locked": true
     },
     {
       "id": "note_datasheets",
@@ -486,7 +515,8 @@
         "spec"
       ],
       "createdAt": 1715500500000,
-      "modifiedAt": 1715500500000
+      "modifiedAt": 1715500500000,
+      "locked": true
     },
     {
       "id": "note_industry_links",
@@ -502,7 +532,8 @@
         "reference"
       ],
       "createdAt": 1715500500000,
-      "modifiedAt": 1715500500000
+      "modifiedAt": 1715500500000,
+      "locked": true
     },
     {
       "id": "note_design_checklist",
@@ -519,7 +550,8 @@
         "reference"
       ],
       "createdAt": 1715500500000,
-      "modifiedAt": 1715500500000
+      "modifiedAt": 1715500500000,
+      "locked": true
     },
     {
       "id": "note_design_notes_long",
@@ -536,7 +568,8 @@
         "reference"
       ],
       "createdAt": 1715500500000,
-      "modifiedAt": 1715500500000
+      "modifiedAt": 1715500500000,
+      "locked": true
     },
     {
       "id": "note_todo_firmware",
@@ -553,7 +586,8 @@
         "reference"
       ],
       "createdAt": 1715500500000,
-      "modifiedAt": 1715500500000
+      "modifiedAt": 1715500500000,
+      "locked": true
     },
     {
       "id": "note_ble_protocol",
@@ -570,7 +604,8 @@
         "design"
       ],
       "createdAt": 1715500500000,
-      "modifiedAt": 1715500500000
+      "modifiedAt": 1715500500000,
+      "locked": true
     },
     {
       "id": "docwindow_spec_pdf",
@@ -588,7 +623,8 @@
         "reference"
       ],
       "createdAt": 1715500600000,
-      "modifiedAt": 1715500600000
+      "modifiedAt": 1715500600000,
+      "locked": true
     }
   ],
   "dailyNotes": {
