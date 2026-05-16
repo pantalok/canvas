@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' https://esm.sh https://cdnjs.cloudflare.com; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src blob: data: 'self'; worker-src blob:; connect-src blob: 'self' https://cdnjs.cloudflare.com https://esm.sh;">
-<title>Ak@sh — Local Workspace</title>
+<title>Canv@s — Local Workspace</title>
 <script type="importmap">
 {
   "imports": {
@@ -101,7 +101,7 @@
   .item.text[data-empty]:not(.editing) .text-content::before { content: "Type something..."; color: var(--ink-faint); font-style: italic; font-size: 0.92em; pointer-events: none; }
 
   .item.frame { border-radius: 12px; box-shadow: none; z-index: 0; }
-  .item.locked { cursor: default; }
+  .item.locked { cursor: default; pointer-events: none; }
   .item .lock-icon { position: absolute; top: 8px; right: 8px; pointer-events: none; opacity: 0.5; line-height: 1; font-size: 16px; }
   .item.in-locked-frame { cursor: default; pointer-events: none; }
   .item:not(.frame):not(.selected) { z-index: 1; }
@@ -634,7 +634,7 @@
 <div id="project-hub">
   <div class="hub-container">
     <div class="hub-header">
-      <h1>Ak@sh</h1>
+      <h1>Canv@s</h1>
       <p>Select a folder to open as a workspace, or create a new one.</p>
     </div>
     <div class="project-list" id="hub-project-list"></div>
@@ -679,7 +679,7 @@
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
       <div class="divider"></div>
-      <div class="brand" id="brand-btn" title="Switch workspace (Cmd/Ctrl+K)">Ak@sh <sup>local</sup></div>
+      <div class="brand" id="brand-btn" title="Switch workspace (Cmd/Ctrl+K)">Canv@s <sup>local</sup></div>
       <span class="workspace-name" id="workspace-name"></span>
     </div>
     <div class="panel" id="search-panel">
@@ -1367,7 +1367,7 @@ window.__akashDebugMigration = async function() {
     } catch (e) { checks.canvasError = e.message; }
   }
   try { checks.backupExists = await fs.exists(BACKUP_FILE); } catch { checks.backupExists = false; }
-  console.log('Ak@sh v2 Migration Debug:', checks);
+  console.log('Canv@s v2 Migration Debug:', checks);
   return checks;
 };
 
@@ -2369,7 +2369,7 @@ async function bootCanvas(selectedStorage) {
   storage = selectedStorage; hubUI.classList.remove('visible'); appUI.style.display = 'block';
   world.innerHTML = ''; itemElements.clear(); state.selectedIds.clear();
   $('workspace-name').textContent = storage.dir.name;
-  document.title = 'Ak@sh — ' + storage.dir.name;
+  document.title = 'Canv@s — ' + storage.dir.name;
   // Set currentProjectId from recentProjects
   const proj = recentProjects.find(p => p.name === storage.dir.name);
   currentProjectId = proj ? proj.id : null;
@@ -6221,7 +6221,7 @@ document.addEventListener('click', (e) => {
 
 /* ── Spotlight Tour ── */
 const tourSteps = [
-  { target: null, title: 'Welcome to Ak@sh', desc: 'Your local canvas workspace. Let\u2019s walk through the key features.', position: 'center' },
+  { target: null, title: 'Welcome to Canv@s', desc: 'Your local canvas workspace. Let\u2019s walk through the key features.', position: 'center' },
   { target: '#brand-btn', title: 'Workspace Switcher', desc: 'Click here or press Cmd/Ctrl+K to switch between workspaces, open folders, or create new canvases.', position: 'bottom' },
   { target: '#search', title: 'Search', desc: 'Search notes, tags, and files. Toggle the globe icon to search across all your workspaces at once.', position: 'bottom' },
   { target: '#sidebar-btn', title: 'Outline', desc: 'Press \\ to open the sidebar. Browse items by tags or timeline.', position: 'bottom' },
