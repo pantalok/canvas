@@ -1,0 +1,213 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 8 0 R] /Count 2 >>
+endobj
+
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792]
+   /Contents 4 0 R /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> >>
+endobj
+
+4 0 obj
+<< /Length 1830 >>
+stream
+BT
+/F2 22 Tf
+72 720 Td
+(SensorHub Rev 2.1 Design Specification) Tj
+0 -36 Td
+/F1 10 Tf
+(Document: SPEC-SH21-001   Rev: A   Date: 2026-05-10) Tj
+0 -28 Td
+/F2 13 Tf
+(1. Overview) Tj
+0 -20 Td
+/F1 10 Tf
+(The SensorHub Rev 2.1 is a compact multi-sensor Bluetooth Low Energy) Tj
+0 -14 Td
+(module designed for environmental monitoring and motion detection.) Tj
+0 -14 Td
+(It integrates an ESP32-S3 MCU with temperature, humidity, and) Tj
+0 -14 Td
+(accelerometer sensors in a 32x24mm form factor.) Tj
+0 -24 Td
+/F2 13 Tf
+(2. Electrical Specifications) Tj
+0 -20 Td
+/F1 10 Tf
+(Supply Voltage: 3.0V to 5.5V via USB-C or LiPo battery) Tj
+0 -14 Td
+(Regulated Output: 3.3V +/- 2% from TPS63020 buck-boost) Tj
+0 -14 Td
+(Active Current: 356mA peak during BLE TX at +9dBm) Tj
+0 -14 Td
+(Sleep Current: less than 12uA in deep sleep with RTC) Tj
+0 -14 Td
+(Operating Temperature: -20C to +60C) Tj
+0 -14 Td
+(Storage Temperature: -40C to +85C) Tj
+0 -24 Td
+/F2 13 Tf
+(3. Pin Assignment) Tj
+0 -20 Td
+/F1 10 Tf
+(GPIO8  - I2C SDA with 4.7k pull-up to 3.3V) Tj
+0 -14 Td
+(GPIO9  - I2C SCL with 4.7k pull-up to 3.3V) Tj
+0 -14 Td
+(GPIO10 - SPI CS active low) Tj
+0 -14 Td
+(GPIO11 - SPI MOSI) Tj
+0 -14 Td
+(GPIO12 - SPI MISO) Tj
+0 -14 Td
+(GPIO13 - SPI CLK) Tj
+0 -14 Td
+(GPIO43 - UART TX debug 115200 baud) Tj
+0 -14 Td
+(GPIO44 - UART RX debug) Tj
+0 -14 Td
+(GPIO1  - ADC VBAT monitor 100k/100k divider) Tj
+0 -14 Td
+(GPIO4  - Status LED active high) Tj
+0 -14 Td
+(GPIO5  - User button active low with internal pull-up) Tj
+0 -14 Td
+(GPIO6  - LIS3DH INT1 motion interrupt) Tj
+0 -24 Td
+/F2 13 Tf
+(4. I2C Bus Configuration) Tj
+0 -20 Td
+/F1 10 Tf
+(Bus Speed: 400kHz Fast Mode) Tj
+0 -14 Td
+(SHT40 Address: 0x44 temperature and humidity sensor) Tj
+0 -14 Td
+(LIS3DH Address: 0x19 three-axis accelerometer) Tj
+0 -14 Td
+(AT24C256 Address: 0x50 32KB EEPROM for config storage) Tj
+ET
+endstream
+endobj
+
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+
+7 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792]
+   /Contents 9 0 R /Resources << /Font << /F1 5 0 R /F2 6 0 R /F3 7 0 R >> >> >>
+endobj
+
+9 0 obj
+<< /Length 1700 >>
+stream
+BT
+/F2 13 Tf
+72 720 Td
+(5. Power Architecture) Tj
+0 -20 Td
+/F1 10 Tf
+(The power subsystem uses a TPS63020 buck-boost converter to produce) Tj
+0 -14 Td
+(a stable 3.3V rail from either USB 5V or single-cell LiPo battery.) Tj
+0 -14 Td
+(Battery charging is handled by the MCP73831 linear charger IC.) Tj
+0 -24 Td
+(Power Budget:) Tj
+0 -14 Td
+(  ESP32-S3 active BLE TX:   350mA) Tj
+0 -14 Td
+(  SHT40 measurement:        0.4mA) Tj
+0 -14 Td
+(  LIS3DH normal mode:       0.5mA) Tj
+0 -14 Td
+(  AT24C256 write:            5.0mA) Tj
+0 -14 Td
+(  Misc LED and pull-ups:    1.0mA) Tj
+0 -14 Td
+(  Total active:            ~357mA) Tj
+0 -24 Td
+/F2 13 Tf
+(6. BLE Configuration) Tj
+0 -20 Td
+/F1 10 Tf
+(Protocol: Bluetooth 5.0 Low Energy) Tj
+0 -14 Td
+(GATT Service: Environmental Sensing UUID 0x181A) Tj
+0 -14 Td
+(Advertising Interval: 1000ms normal or 200ms fast connect) Tj
+0 -14 Td
+(TX Power: 0dBm default and +9dBm maximum) Tj
+0 -14 Td
+(Bonding: Yes with up to 4 paired devices) Tj
+0 -14 Td
+(Encryption: AES-128-CCM) Tj
+0 -24 Td
+/F2 13 Tf
+(7. Mechanical) Tj
+0 -20 Td
+/F1 10 Tf
+(PCB Dimensions: 32.0 x 24.0 x 1.0mm) Tj
+0 -14 Td
+(Layer Count: 4 layers SIG/GND/PWR/SIG) Tj
+0 -14 Td
+(Surface Finish: ENIG) Tj
+0 -14 Td
+(Mounting: 4x M2 holes at corners) Tj
+0 -14 Td
+(Weight: approximately 6g excluding battery) Tj
+0 -24 Td
+/F2 13 Tf
+(8. Compliance) Tj
+0 -20 Td
+/F1 10 Tf
+(FCC Part 15 certification pending) Tj
+0 -14 Td
+(CE RED 2014/53/EU certification pending) Tj
+0 -14 Td
+(RoHS 3 compliant) Tj
+0 -14 Td
+(REACH SVHC declaration available on request) Tj
+0 -24 Td
+/F2 13 Tf
+(9. Revision History) Tj
+0 -20 Td
+/F1 10 Tf
+(Rev A  2026-05-10  Initial release) Tj
+0 -14 Td
+(Rev B  TBD         Add thermal management section) Tj
+ET
+endstream
+endobj
+
+xref
+0 10
+0000000000 65535 f 
+0000000009 00000 n 
+0000000059 00000 n 
+0000000123 00000 n 
+0000000263 00000 n 
+0000002146 00000 n 
+0000002217 00000 n 
+0000002293 00000 n 
+0000002362 00000 n 
+0000002512 00000 n 
+
+trailer
+<< /Size 10 /Root 1 0 R >>
+startxref
+4265
+%%EOF

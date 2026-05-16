@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 300" width="360" height="300">
+  <rect x="1" y="1" width="358" height="298" rx="8" fill="#F7F4EE" stroke="#1B1A17" stroke-width="1.5"/>
+
+  <!-- Title -->
+  <text x="180" y="22" text-anchor="middle" font-family="Inter Tight, sans-serif" font-size="11" font-weight="600" fill="#1B1A17">ESP32-S3 Pin Assignment — SensorHub Rev 2.1</text>
+
+  <!-- MCU Body -->
+  <rect x="110" y="55" width="140" height="210" rx="6" fill="#E8EEF4" stroke="#1B1A17" stroke-width="1.5"/>
+  <text x="180" y="155" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="#1B1A17">ESP32-S3</text>
+  <text x="180" y="170" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="#57544D">WROOM-1</text>
+
+  <!-- Left side pins (I2C - blue) -->
+  <rect x="30" y="65" width="75" height="18" rx="3" fill="#D4E6F1" stroke="#1B1A17" stroke-width="0.8"/>
+  <text x="67" y="77" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#1B1A17">GPIO8 SDA</text>
+
+  <rect x="30" y="90" width="75" height="18" rx="3" fill="#D4E6F1" stroke="#1B1A17" stroke-width="0.8"/>
+  <text x="67" y="102" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#1B1A17">GPIO9 SCL</text>
+
+  <!-- Left side pins (SPI - green) -->
+  <rect x="30" y="120" width="75" height="18" rx="3" fill="#D5F5E3" stroke="#1B1A17" stroke-width="0.8"/>
+  <text x="67" y="132" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#1B1A17">GPIO10 CS</text>
+
+  <rect x="30" y="145" width="75" height="18" rx="3" fill="#D5F5E3" stroke="#1B1A17" stroke-width="0.8"/>
+  <text x="67" y="157" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#1B1A17">GPIO11 MOSI</text>
+
+  <rect x="30" y="170" width="75" height="18" rx="3" fill="#D5F5E3" stroke="#1B1A17" stroke-width="0.8"/>
+  <text x="67" y="182" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#1B1A17">GPIO12 MISO</text>
+
+  <rect x="30" y="195" width="75" height="18" rx="3" fill="#D5F5E3" stroke="#1B1A17" stroke-width="0.8"/>
+  <text x="67" y="207" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#1B1A17">GPIO13 CLK</text>
+
+  <!-- Left side pins (UART - orange) -->
+  <rect x="30" y="225" width="75" height="18" rx="3" fill="#FDEBD0" stroke="#1B1A17" stroke-width="0.8"/>
+  <text x="67" y="237" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#1B1A17">GPIO43 TX</text>
+
+  <rect x="30" y="250" width="75" height="18" rx="3" fill="#FDEBD0" stroke="#1B1A17" stroke-width="0.8"/>
+  <text x="67" y="262" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#1B1A17">GPIO44 RX</text>
+
+  <!-- Right side pins (ADC - purple) -->
+  <rect x="255" y="65" width="75" height="18" rx="3" fill="#E8DAEF" stroke="#1B1A17" stroke-width="0.8"/>
+  <text x="292" y="77" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#1B1A17">GPIO1 VBAT</text>
+
+  <rect x="255" y="90" width="75" height="18" rx="3" fill="#E8DAEF" stroke="#1B1A17" stroke-width="0.8"/>
+  <text x="292" y="102" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#1B1A17">GPIO2 NTC</text>
+
+  <!-- Right side pins (GPIO - gray) -->
+  <rect x="255" y="120" width="75" height="18" rx="3" fill="#EAECEE" stroke="#1B1A17" stroke-width="0.8"/>
+  <text x="292" y="132" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#1B1A17">GPIO4 LED</text>
+
+  <rect x="255" y="145" width="75" height="18" rx="3" fill="#EAECEE" stroke="#1B1A17" stroke-width="0.8"/>
+  <text x="292" y="157" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#1B1A17">GPIO5 BTN</text>
+
+  <rect x="255" y="170" width="75" height="18" rx="3" fill="#EAECEE" stroke="#1B1A17" stroke-width="0.8"/>
+  <text x="292" y="182" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#1B1A17">GPIO6 INT</text>
+
+  <rect x="255" y="195" width="75" height="18" rx="3" fill="#EAECEE" stroke="#1B1A17" stroke-width="0.8"/>
+  <text x="292" y="207" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#1B1A17">GPIO7 EN</text>
+
+  <!-- Right side (Power) -->
+  <rect x="255" y="225" width="75" height="18" rx="3" fill="#FCF3CF" stroke="#1B1A17" stroke-width="0.8"/>
+  <text x="292" y="237" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#1B1A17">3V3</text>
+
+  <rect x="255" y="250" width="75" height="18" rx="3" fill="#FCF3CF" stroke="#1B1A17" stroke-width="0.8"/>
+  <text x="292" y="262" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#1B1A17">GND</text>
+
+  <!-- Connection lines -->
+  <line x1="105" y1="74" x2="110" y2="74" stroke="#1B1A17" stroke-width="0.8"/>
+  <line x1="105" y1="99" x2="110" y2="99" stroke="#1B1A17" stroke-width="0.8"/>
+  <line x1="105" y1="129" x2="110" y2="129" stroke="#1B1A17" stroke-width="0.8"/>
+  <line x1="105" y1="154" x2="110" y2="154" stroke="#1B1A17" stroke-width="0.8"/>
+  <line x1="105" y1="179" x2="110" y2="179" stroke="#1B1A17" stroke-width="0.8"/>
+  <line x1="105" y1="204" x2="110" y2="204" stroke="#1B1A17" stroke-width="0.8"/>
+  <line x1="105" y1="234" x2="110" y2="234" stroke="#1B1A17" stroke-width="0.8"/>
+  <line x1="105" y1="259" x2="110" y2="259" stroke="#1B1A17" stroke-width="0.8"/>
+  <line x1="250" y1="74" x2="255" y2="74" stroke="#1B1A17" stroke-width="0.8"/>
+  <line x1="250" y1="99" x2="255" y2="99" stroke="#1B1A17" stroke-width="0.8"/>
+  <line x1="250" y1="129" x2="255" y2="129" stroke="#1B1A17" stroke-width="0.8"/>
+  <line x1="250" y1="154" x2="255" y2="154" stroke="#1B1A17" stroke-width="0.8"/>
+  <line x1="250" y1="179" x2="255" y2="179" stroke="#1B1A17" stroke-width="0.8"/>
+  <line x1="250" y1="204" x2="255" y2="204" stroke="#1B1A17" stroke-width="0.8"/>
+  <line x1="250" y1="234" x2="255" y2="234" stroke="#1B1A17" stroke-width="0.8"/>
+  <line x1="250" y1="259" x2="255" y2="259" stroke="#1B1A17" stroke-width="0.8"/>
+
+  <!-- Legend -->
+  <rect x="30" y="278" width="10" height="8" rx="2" fill="#D4E6F1" stroke="#1B1A17" stroke-width="0.5"/>
+  <text x="44" y="286" font-family="JetBrains Mono, monospace" font-size="6" fill="#57544D">I2C</text>
+  <rect x="70" y="278" width="10" height="8" rx="2" fill="#D5F5E3" stroke="#1B1A17" stroke-width="0.5"/>
+  <text x="84" y="286" font-family="JetBrains Mono, monospace" font-size="6" fill="#57544D">SPI</text>
+  <rect x="110" y="278" width="10" height="8" rx="2" fill="#FDEBD0" stroke="#1B1A17" stroke-width="0.5"/>
+  <text x="124" y="286" font-family="JetBrains Mono, monospace" font-size="6" fill="#57544D">UART</text>
+  <rect x="158" y="278" width="10" height="8" rx="2" fill="#E8DAEF" stroke="#1B1A17" stroke-width="0.5"/>
+  <text x="172" y="286" font-family="JetBrains Mono, monospace" font-size="6" fill="#57544D">ADC</text>
+  <rect x="200" y="278" width="10" height="8" rx="2" fill="#EAECEE" stroke="#1B1A17" stroke-width="0.5"/>
+  <text x="214" y="286" font-family="JetBrains Mono, monospace" font-size="6" fill="#57544D">GPIO</text>
+  <rect x="248" y="278" width="10" height="8" rx="2" fill="#FCF3CF" stroke="#1B1A17" stroke-width="0.5"/>
+  <text x="262" y="286" font-family="JetBrains Mono, monospace" font-size="6" fill="#57544D">PWR</text>
+</svg>

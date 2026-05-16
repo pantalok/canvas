@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' https://esm.sh https://cdnjs.cloudflare.com; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src blob: data:; worker-src blob:; connect-src blob: https://cdnjs.cloudflare.com https://esm.sh;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' https://esm.sh https://cdnjs.cloudflare.com; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src blob: data: 'self'; worker-src blob:; connect-src blob: 'self' https://cdnjs.cloudflare.com https://esm.sh;">
 <title>Ak@sh — Local Workspace</title>
 <script type="importmap">
 {
@@ -217,6 +217,63 @@
   .sb-action-item.cross-ws { padding-left: 38px; }
   .sb-action-item.cross-ws .sb-action-check { border-style: dashed; opacity: 0.4; cursor: default; }
   .sb-action-item .sb-action-ws { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--ink-faint); flex-shrink: 0; max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* Daily View */
+  .dn-nav { display: flex; align-items: center; gap: 6px; padding: 12px 20px 8px; }
+  .dn-nav-btn { width: 28px; height: 28px; border: 1px solid var(--line); background: transparent; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--ink-soft); transition: all 0.12s; flex-shrink: 0; }
+  .dn-nav-btn:hover { border-color: var(--ink-soft); color: var(--ink); background: var(--bg-deep); }
+  .dn-date-label { flex: 1; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; color: var(--ink); cursor: pointer; padding: 4px 8px; border-radius: 6px; transition: background 0.12s; letter-spacing: 0.01em; }
+  .dn-date-label:hover { background: var(--bg-deep); }
+  .dn-date-label .dn-today-hint { font-size: 10px; color: var(--ink-faint); font-weight: 400; margin-left: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .dn-today-btn { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 10px; border: 1px solid var(--line); background: transparent; border-radius: 999px; color: var(--ink-faint); cursor: pointer; transition: all 0.12s; flex-shrink: 0; }
+  .dn-today-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .dn-summary { display: flex; padding: 0 20px 8px; }
+  .dn-summary input { flex: 1; border: 1px dashed var(--line); background: transparent; border-radius: 6px; padding: 8px 12px; font: inherit; font-size: 13px; color: var(--ink); outline: none; transition: border-color 0.12s; }
+  .dn-summary input::placeholder { color: var(--ink-faint); font-style: italic; }
+  .dn-summary input:focus { border-color: var(--ink-soft); border-style: solid; }
+  .dn-entries { padding: 0 12px; }
+  .dn-entry { display: flex; align-items: flex-start; gap: 8px; padding: 6px 8px; border-radius: 6px; transition: background 0.1s; }
+  .dn-entry:hover { background: var(--bg-deep); }
+  .dn-entry-check { width: 16px; height: 16px; border: 1.5px solid var(--ink-faint); border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.12s; margin-top: 2px; }
+  .dn-entry-check:hover { border-color: var(--ink); }
+  .dn-entry-check.checked { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+  .dn-entry-time { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--ink-faint); flex-shrink: 0; margin-top: 3px; min-width: 38px; letter-spacing: 0.02em; }
+  .dn-entry-text { flex: 1; font-size: 13px; color: var(--ink); outline: none; line-height: 1.45; min-height: 1.45em; border: none; background: transparent; padding: 0; word-break: break-word; }
+  .dn-entry-text::placeholder { color: var(--ink-faint); font-style: italic; }
+  .dn-entry.done .dn-entry-text { text-decoration: line-through; text-decoration-thickness: 1px; color: var(--ink-faint); }
+  .dn-entry-del { width: 20px; height: 20px; border: none; background: transparent; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--ink-faint); opacity: 0; transition: opacity 0.12s, color 0.12s; flex-shrink: 0; margin-top: 1px; }
+  .dn-entry:hover .dn-entry-del { opacity: 1; }
+  .dn-entry-del:hover { color: var(--accent); background: var(--accent-soft); }
+  .dn-add-btn { display: flex; align-items: center; gap: 6px; padding: 8px 20px; margin: 4px 0; cursor: pointer; color: var(--ink-faint); font-size: 13px; transition: color 0.12s; background: none; border: none; width: 100%; text-align: left; font-family: inherit; border-radius: 6px; }
+  .dn-add-btn:hover { color: var(--ink); background: var(--bg-deep); }
+  .dn-section { padding: 8px 20px 4px; }
+  .dn-section-header { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-faint); padding-bottom: 6px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--line); margin-top: 4px; padding-top: 12px; }
+  .dn-section-dismiss { font-size: 10px; text-transform: lowercase; letter-spacing: 0; color: var(--ink-faint); cursor: pointer; background: none; border: none; font-family: inherit; }
+  .dn-section-dismiss:hover { color: var(--ink); }
+  .dn-carry-item { display: flex; align-items: center; gap: 8px; padding: 4px 0; font-size: 12.5px; color: var(--ink-soft); }
+  .dn-carry-text { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .dn-carry-add { font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 2px 8px; border: 1px solid var(--line); border-radius: 999px; background: transparent; cursor: pointer; color: var(--ink-faint); transition: all 0.12s; flex-shrink: 0; }
+  .dn-carry-add:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .dn-followup-item { display: flex; align-items: center; gap: 8px; padding: 4px 0; font-size: 12.5px; color: var(--ink-soft); cursor: pointer; }
+  .dn-followup-item:hover { color: var(--ink); }
+  .dn-followup-date { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-faint); flex-shrink: 0; }
+  .dn-followup-check { width: 14px; height: 14px; border: 1.5px solid var(--ink-faint); border-radius: 3px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.12s; }
+  .dn-followup-check:hover { border-color: var(--ink); }
+  .dn-followup-check.checked { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+  .dn-calendar { position: absolute; z-index: 200; background: var(--surface); border-radius: 10px; box-shadow: var(--shadow-lg); padding: 12px; min-width: 240px; }
+  .dn-cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .dn-cal-title { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; color: var(--ink); }
+  .dn-cal-nav { width: 24px; height: 24px; border: none; background: transparent; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--ink-soft); }
+  .dn-cal-nav:hover { background: var(--bg-deep); color: var(--ink); }
+  .dn-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; text-align: center; }
+  .dn-cal-dow { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--ink-faint); text-transform: uppercase; padding: 4px 0; letter-spacing: 0.06em; }
+  .dn-cal-day { font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 5px 0; border-radius: 4px; cursor: pointer; color: var(--ink-soft); position: relative; transition: background 0.1s; }
+  .dn-cal-day:hover { background: var(--bg-deep); }
+  .dn-cal-day.today { font-weight: 600; color: var(--ink); }
+  .dn-cal-day.selected { background: var(--ink); color: var(--bg); }
+  .dn-cal-day.other-month { color: var(--ink-faint); opacity: 0.4; }
+  .dn-cal-day.has-entries::after { content: ""; position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%); width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
+  .dn-cal-day.selected.has-entries::after { background: var(--bg); }
 
   #lasso { position: fixed; display: none; border: 1px solid var(--accent); background: var(--accent-soft); pointer-events: none; z-index: 10000; }
   #scale-overlay { position: fixed; display: none; border: 2px dashed var(--accent); pointer-events: none; z-index: 9999; box-sizing: border-box; }
@@ -588,6 +645,7 @@
       <div id="fsa-warning" style="display:none; width:100%; text-align:center; font-size:12px; color:var(--ink-faint); margin-top:8px;">
         Note: Folder linking works best on desktop Chrome or Edge.
       </div>
+      <a href="?demo=hardware" style="margin-top:12px; color:var(--ink-faint); font-size:13px; text-decoration:underline;">Try the Hardware Engineer demo</a>
     </div>
   </div>
 </div>
@@ -682,9 +740,10 @@
       </div>
       <div class="sb-stats" id="sb-stats"></div>
       <div class="sb-tabs">
-        <button class="sb-tab active" data-view="tags">Tags</button>
+        <button class="sb-tab active" data-view="actions">Actions</button>
+        <button class="sb-tab" data-view="daily">Daily</button>
+        <button class="sb-tab" data-view="tags">Tags</button>
         <button class="sb-tab" data-view="timeline">Timeline</button>
-        <button class="sb-tab" data-view="actions">Actions</button>
       </div>
     </div>
     <div class="sb-body" id="sb-body"></div>
@@ -1209,7 +1268,7 @@ class FolderStorage {
         }
       }
     }
-    return { items: v1Items, pan, zoom };
+    return { items: v1Items, pan, zoom, dailyNotes: canvas.dailyNotes || {} };
   }
   async saveCanvas(data) {
     const items = (data.items || []).map(item => {
@@ -1224,7 +1283,8 @@ class FolderStorage {
       id: this._canvasId,
       name: this._workspace?.name || 'Main',
       viewport,
-      items
+      items,
+      dailyNotes: data.dailyNotes || {}
     };
     await saveCanvasManifest(this.fs, canvasData);
     if (this._workspace) await saveWorkspaceManifest(this.fs, this._workspace);
@@ -1258,6 +1318,36 @@ class FolderStorage {
     try { const filesDir = await this._filesDir(); await filesDir.removeEntry(filename); } catch (e) {}
   }
 }
+
+/* ── Demo Mode (removable) ── */
+class DemoStorage {
+  constructor(data, baseUrl) {
+    this._data = data;
+    this._baseUrl = baseUrl;
+    this.urlCache = new Map();
+    this.dir = { name: data.name || 'Demo' };
+    (data.items || []).forEach(item => {
+      if (item.type === 'image' && item.file) {
+        this.urlCache.set(item.file, baseUrl + 'images/' + item.file);
+      }
+    });
+  }
+  get type() { return 'demo'; }
+  async loadCanvas() {
+    const items = (this._data.items || []).map(item => {
+      if (item.type === 'docwindow' && item.fileExt === 'pdf' && item.file) {
+        return { ...item, _pdfUrl: this._baseUrl + 'files/' + item.file };
+      }
+      return item;
+    });
+    return { items, pan: this._data.pan || {x:0,y:0}, zoom: this._data.zoom || 1, dailyNotes: this._data.dailyNotes || {} };
+  }
+  async saveCanvas() {}
+  async writeImage() {}
+  async deleteImage() {}
+  getImageUrl(filename) { return this.urlCache.get(filename); }
+}
+/* ── End Demo Mode ── */
 
 /* ── Step 5: Dev verification helper ── */
 window.__akashDebugMigration = async function() {
@@ -1515,7 +1605,7 @@ async function mountPdfViewer(item, containerEl) {
 
   const entry = _docwindowEditors.get(item.id) || {};
   const fileHandle = entry.fileHandle || item._fileHandle || null;
-  if (!fileHandle) {
+  if (!fileHandle && !item._pdfUrl) {
     editorDiv.innerHTML = '<div class="docwindow-loading">File handle lost. Close and re-open the file.</div>';
     return;
   }
@@ -1529,8 +1619,13 @@ async function mountPdfViewer(item, containerEl) {
 
   let arrayBuf;
   try {
-    const file = await fileHandle.getFile();
-    arrayBuf = await file.arrayBuffer();
+    if (item._pdfUrl) {
+      const resp = await fetch(item._pdfUrl);
+      arrayBuf = await resp.arrayBuffer();
+    } else {
+      const file = await fileHandle.getFile();
+      arrayBuf = await file.arrayBuffer();
+    }
   } catch (e) {
     editorDiv.innerHTML = '<div class="docwindow-loading">Could not read PDF file.</div>';
     console.warn('PDF read error:', e);
@@ -2172,7 +2267,7 @@ async function createDocwindow(fileHandle, dropX, dropY) {
 }
 
 let metaDb = null; let storage = null; let recentProjects = [];
-const state = { items: [], selectedIds: new Set(), pan: { x: 0, y: 0 }, zoom: 1, searchQuery: '' };
+const state = { items: [], selectedIds: new Set(), pan: { x: 0, y: 0 }, zoom: 1, searchQuery: '', dailyNotes: {} };
 const itemElements = new Map();
 let toolbarInteracting = false;
 let savedSelection = null;
@@ -2203,6 +2298,20 @@ const viewport = $('viewport'); const world = $('world'); const emptyState = $('
 const hubUI = $('project-hub'); const appUI = $('app-container');
 
 async function init() {
+  // ── Demo mode (removable) ──
+  const demoParam = new URLSearchParams(window.location.search).get('demo');
+  if (demoParam) {
+    try {
+      const baseUrl = 'demos/' + demoParam + '/';
+      const resp = await fetch(baseUrl + 'canvas.json');
+      if (resp.ok) {
+        const data = await resp.json();
+        await bootCanvas(new DemoStorage(data, baseUrl));
+        return;
+      }
+    } catch (e) { console.warn('Demo load failed:', e); }
+  }
+  // ── End demo mode ──
   try { metaDb = await openDb(META_DB, 1, META_STORE); } catch (err) {}
   if (metaDb) { try { recentProjects = await idbGet(metaDb, META_STORE, PROJECTS_KEY) || []; } catch(e) {} }
   if (!('showDirectoryPicker' in window)) $('fsa-warning').style.display = 'block';
@@ -2265,7 +2374,7 @@ async function bootCanvas(selectedStorage) {
   const proj = recentProjects.find(p => p.name === storage.dir.name);
   currentProjectId = proj ? proj.id : null;
   const data = await storage.loadCanvas();
-  state.items = data.items || []; state.pan = data.pan || { x: 0, y: 0 }; state.zoom = data.zoom || 1;
+  state.items = data.items || []; state.pan = data.pan || { x: 0, y: 0 }; state.zoom = data.zoom || 1; state.dailyNotes = data.dailyNotes || {};
   renderAll();
   updateNavButtons();
   // Background: index current workspace and reindex others
@@ -2512,6 +2621,27 @@ async function indexCurrentWorkspace() {
         tags: (item.tags || []).join(' '),
         preview: getItemPreview(item),
         modifiedAt: item.modifiedAt || item.createdAt || 0
+      });
+    }
+    // Index daily entries
+    if (state.dailyNotes) {
+      Object.keys(state.dailyNotes).forEach(dateStr => {
+        const note = state.dailyNotes[dateStr];
+        (note.entries || []).forEach(entry => {
+          if (entry.text.trim()) {
+            store.put({
+              key: currentProjectId + ':daily:' + entry.id,
+              workspaceId: currentProjectId,
+              workspaceName: wName,
+              itemId: 'daily:' + entry.id,
+              type: 'daily',
+              content: entry.text,
+              tags: (entry.tags || []).join(' '),
+              preview: dateStr + ' ' + entry.time + ' — ' + entry.text.slice(0, 80),
+              modifiedAt: note.modifiedAt || 0
+            });
+          }
+        });
       });
     }
     await new Promise((resolve, reject) => { tx.oncomplete = resolve; tx.onerror = () => reject(tx.error); });
@@ -4326,6 +4456,7 @@ window.addEventListener('keydown', e => {
     state.items = state.items.filter(i => !deleteSet.has(i.id)); state.selectedIds.clear(); renderAll(); scheduleSave();
   }
   if (e.key === '\\' && !isEditingField()) { toggleSidebar(); }
+  if (e.key === 'd' && !isEditingField() && !e.metaKey && !e.ctrlKey) { openDailyView(); }
   if (e.key === 'n' && !isEditingField() && !e.metaKey && !e.ctrlKey) {
     const w = screenToWorld(window.innerWidth / 2, window.innerHeight / 2);
     addText(w.x, w.y);
@@ -4782,7 +4913,7 @@ function toggleActionDone(item) {
 }
 
 /* ── Sidebar / Outline ── */
-let sidebarView = 'tags';
+let sidebarView = 'actions';
 let collapsedGroups = new Set();
 let globalActionsMode = false;
 
@@ -4886,6 +5017,12 @@ function renderSidebar() {
   stats.textContent = parts.join(' · ') || 'Empty canvas';
 
   body.innerHTML = '';
+
+  if (sidebarView === 'daily') {
+    renderDailyView(body);
+    return;
+  }
+
   if (items.length === 0) {
     body.innerHTML = '<div class="sb-empty">Add notes and images to your canvas — they\'ll appear here organized by tag.</div>';
     return;
@@ -5226,6 +5363,471 @@ async function renderGlobalActionsView(body) {
     group.appendChild(itemsContainer);
     body.appendChild(group);
   });
+}
+
+/* ── Daily View ── */
+let dailyViewDate = todayDateStr();
+let dailyCalendarOpen = false;
+let dailyCalendarMonth = null; // { year, month } for calendar navigation
+let dailyDismissedCarry = new Set();
+
+function todayDateStr() {
+  const d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+
+function formatDailyDate(dateStr) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const date = new Date(y, m - 1, d);
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  return days[date.getDay()] + ', ' + months[date.getMonth()] + ' ' + d + ', ' + y;
+}
+
+function currentTimeStr() {
+  const d = new Date();
+  return String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+}
+
+function adjacentDate(dateStr, offset) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const date = new Date(y, m - 1, d + offset);
+  return date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+}
+
+function getDailyNote(dateStr) {
+  return state.dailyNotes[dateStr] || null;
+}
+
+function ensureDailyNote(dateStr) {
+  if (!state.dailyNotes[dateStr]) {
+    state.dailyNotes[dateStr] = {
+      date: dateStr,
+      createdAt: Date.now(),
+      modifiedAt: Date.now(),
+      summary: '',
+      entries: []
+    };
+  }
+  return state.dailyNotes[dateStr];
+}
+
+function openDailyView() {
+  const sb = $('sidebar');
+  dailyViewDate = todayDateStr();
+  sidebarView = 'daily';
+  sb.querySelectorAll('.sb-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.view === 'daily');
+  });
+  if (!sb.classList.contains('visible')) sb.classList.add('visible');
+  renderSidebar();
+}
+
+function renderDailyView(body) {
+  const today = todayDateStr();
+  const isToday = dailyViewDate === today;
+  const note = getDailyNote(dailyViewDate);
+
+  // Date navigation
+  const nav = document.createElement('div');
+  nav.className = 'dn-nav';
+  const prevBtn = document.createElement('button');
+  prevBtn.className = 'dn-nav-btn';
+  prevBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7.5 2.5L4 6l3.5 3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  prevBtn.onclick = () => { dailyViewDate = adjacentDate(dailyViewDate, -1); dailyCalendarOpen = false; renderSidebar(); };
+
+  const nextBtn = document.createElement('button');
+  nextBtn.className = 'dn-nav-btn';
+  nextBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6l-3.5 3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  nextBtn.onclick = () => { dailyViewDate = adjacentDate(dailyViewDate, 1); dailyCalendarOpen = false; renderSidebar(); };
+
+  const dateLabel = document.createElement('span');
+  dateLabel.className = 'dn-date-label';
+  dateLabel.innerHTML = formatDailyDate(dailyViewDate) + (isToday ? '<span class="dn-today-hint">today</span>' : '');
+  dateLabel.onclick = (e) => {
+    e.stopPropagation();
+    dailyCalendarOpen = !dailyCalendarOpen;
+    if (dailyCalendarOpen) {
+      const [y, m] = dailyViewDate.split('-').map(Number);
+      dailyCalendarMonth = { year: y, month: m };
+    }
+    renderSidebar();
+  };
+
+  nav.appendChild(prevBtn);
+  nav.appendChild(dateLabel);
+  nav.appendChild(nextBtn);
+  if (!isToday) {
+    const todayBtn = document.createElement('button');
+    todayBtn.className = 'dn-today-btn';
+    todayBtn.textContent = 'Today';
+    todayBtn.onclick = () => { dailyViewDate = todayDateStr(); dailyCalendarOpen = false; renderSidebar(); };
+    nav.appendChild(todayBtn);
+  }
+  body.appendChild(nav);
+
+  // Mini calendar (if open)
+  if (dailyCalendarOpen) {
+    renderDailyCalendar(body);
+  }
+
+  // Day summary
+  const summaryWrap = document.createElement('div');
+  summaryWrap.className = 'dn-summary';
+  const summaryInput = document.createElement('input');
+  summaryInput.type = 'text';
+  summaryInput.placeholder = 'Day summary (optional)...';
+  summaryInput.value = note ? note.summary : '';
+  summaryInput.oninput = () => {
+    const n = ensureDailyNote(dailyViewDate);
+    n.summary = summaryInput.value;
+    n.modifiedAt = Date.now();
+    scheduleSave();
+  };
+  summaryWrap.appendChild(summaryInput);
+  body.appendChild(summaryWrap);
+
+  // Entries list
+  const entriesWrap = document.createElement('div');
+  entriesWrap.className = 'dn-entries';
+  const entries = note ? note.entries : [];
+  entries.forEach((entry, idx) => {
+    entriesWrap.appendChild(buildDailyEntry(entry, dailyViewDate, idx));
+  });
+  body.appendChild(entriesWrap);
+
+  // Add entry button
+  const addBtn = document.createElement('button');
+  addBtn.className = 'dn-add-btn';
+  addBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2.5v9M2.5 7h9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Add entry';
+  addBtn.onclick = () => {
+    const n = ensureDailyNote(dailyViewDate);
+    const newEntry = { id: uid(), time: currentTimeStr(), text: '', done: false, tags: [] };
+    n.entries.push(newEntry);
+    n.modifiedAt = Date.now();
+    scheduleSave();
+    renderSidebar();
+    // Focus the new entry
+    setTimeout(() => {
+      const inputs = body.querySelectorAll('.dn-entry-text');
+      const last = inputs[inputs.length - 1];
+      if (last) last.focus();
+    }, 30);
+  };
+  body.appendChild(addBtn);
+
+  // Carry-forward section (only on today)
+  if (isToday && !dailyDismissedCarry.has(dailyViewDate)) {
+    renderCarryForward(body, today);
+  }
+
+  // Follow-ups section
+  renderFollowups(body);
+
+  // Close calendar on outside click
+  if (dailyCalendarOpen) {
+    const closeHandler = (e) => {
+      if (!e.target.closest('.dn-calendar') && !e.target.closest('.dn-date-label')) {
+        dailyCalendarOpen = false;
+        renderSidebar();
+      }
+      document.removeEventListener('click', closeHandler);
+    };
+    setTimeout(() => document.addEventListener('click', closeHandler), 0);
+  }
+}
+
+function buildDailyEntry(entry, dateStr, idx) {
+  const row = document.createElement('div');
+  row.className = 'dn-entry' + (entry.done ? ' done' : '');
+
+  const check = document.createElement('div');
+  check.className = 'dn-entry-check' + (entry.done ? ' checked' : '');
+  if (entry.done) check.innerHTML = '<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5.5l2 2 4-4.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  check.onclick = () => {
+    const n = state.dailyNotes[dateStr];
+    if (!n) return;
+    n.entries[idx].done = !n.entries[idx].done;
+    n.modifiedAt = Date.now();
+    scheduleSave();
+    renderSidebar();
+  };
+
+  const time = document.createElement('span');
+  time.className = 'dn-entry-time';
+  time.textContent = entry.time;
+
+  const text = document.createElement('input');
+  text.type = 'text';
+  text.className = 'dn-entry-text';
+  text.value = entry.text;
+  text.placeholder = 'What did you work on?';
+  text.oninput = () => {
+    const n = state.dailyNotes[dateStr];
+    if (!n) return;
+    n.entries[idx].text = text.value;
+    n.modifiedAt = Date.now();
+    scheduleSave();
+  };
+  text.onkeydown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const n = ensureDailyNote(dateStr);
+      const newEntry = { id: uid(), time: currentTimeStr(), text: '', done: false, tags: [] };
+      n.entries.splice(idx + 1, 0, newEntry);
+      n.modifiedAt = Date.now();
+      scheduleSave();
+      renderSidebar();
+      setTimeout(() => {
+        const inputs = $('sb-body').querySelectorAll('.dn-entry-text');
+        if (inputs[idx + 1]) inputs[idx + 1].focus();
+      }, 30);
+    }
+    if (e.key === 'Backspace' && text.value === '') {
+      e.preventDefault();
+      const n = state.dailyNotes[dateStr];
+      if (!n || n.entries.length <= 1) return;
+      n.entries.splice(idx, 1);
+      n.modifiedAt = Date.now();
+      scheduleSave();
+      renderSidebar();
+      setTimeout(() => {
+        const inputs = $('sb-body').querySelectorAll('.dn-entry-text');
+        const focusIdx = Math.max(0, idx - 1);
+        if (inputs[focusIdx]) inputs[focusIdx].focus();
+      }, 30);
+    }
+  };
+
+  const del = document.createElement('button');
+  del.className = 'dn-entry-del';
+  del.innerHTML = '<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2.5 2.5l5 5M7.5 2.5l-5 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>';
+  del.onclick = () => {
+    const n = state.dailyNotes[dateStr];
+    if (!n) return;
+    n.entries.splice(idx, 1);
+    n.modifiedAt = Date.now();
+    scheduleSave();
+    renderSidebar();
+  };
+
+  row.appendChild(check);
+  row.appendChild(time);
+  row.appendChild(text);
+  row.appendChild(del);
+  return row;
+}
+
+function renderCarryForward(body, today) {
+  const yesterday = adjacentDate(today, -1);
+  const yNote = getDailyNote(yesterday);
+  if (!yNote) return;
+  const incomplete = yNote.entries.filter(e => !e.done && e.text.trim());
+  if (incomplete.length === 0) return;
+
+  const section = document.createElement('div');
+  section.className = 'dn-section';
+
+  const header = document.createElement('div');
+  header.className = 'dn-section-header';
+  header.innerHTML = '<span>Carried from yesterday</span>';
+  const dismissBtn = document.createElement('button');
+  dismissBtn.className = 'dn-section-dismiss';
+  dismissBtn.textContent = 'dismiss';
+  dismissBtn.onclick = () => {
+    dailyDismissedCarry.add(today);
+    renderSidebar();
+  };
+  header.appendChild(dismissBtn);
+  section.appendChild(header);
+
+  incomplete.forEach(entry => {
+    const row = document.createElement('div');
+    row.className = 'dn-carry-item';
+
+    const txt = document.createElement('span');
+    txt.className = 'dn-carry-text';
+    txt.textContent = entry.time + ' — ' + entry.text;
+
+    const addBtn = document.createElement('button');
+    addBtn.className = 'dn-carry-add';
+    addBtn.textContent = '+ today';
+    addBtn.onclick = () => {
+      const n = ensureDailyNote(today);
+      n.entries.push({ id: uid(), time: currentTimeStr(), text: entry.text, done: false, tags: [...(entry.tags || [])] });
+      n.modifiedAt = Date.now();
+      scheduleSave();
+      renderSidebar();
+    };
+
+    row.appendChild(txt);
+    row.appendChild(addBtn);
+    section.appendChild(row);
+  });
+
+  body.appendChild(section);
+}
+
+function renderFollowups(body) {
+  const allFollowups = [];
+  Object.keys(state.dailyNotes).forEach(dateStr => {
+    const note = state.dailyNotes[dateStr];
+    note.entries.forEach((entry, idx) => {
+      if (!entry.done && entry.tags && entry.tags.includes('followup') && entry.text.trim()) {
+        allFollowups.push({ dateStr, entry, idx });
+      }
+    });
+  });
+  if (allFollowups.length === 0) return;
+
+  allFollowups.sort((a, b) => a.dateStr.localeCompare(b.dateStr));
+
+  const section = document.createElement('div');
+  section.className = 'dn-section';
+
+  const header = document.createElement('div');
+  header.className = 'dn-section-header';
+  header.innerHTML = '<span>Follow-ups (' + allFollowups.length + ')</span>';
+  section.appendChild(header);
+
+  allFollowups.forEach(({ dateStr, entry, idx }) => {
+    const row = document.createElement('div');
+    row.className = 'dn-followup-item';
+
+    const check = document.createElement('div');
+    check.className = 'dn-followup-check';
+    check.onclick = (e) => {
+      e.stopPropagation();
+      const n = state.dailyNotes[dateStr];
+      if (n) {
+        n.entries[idx].done = true;
+        n.modifiedAt = Date.now();
+        scheduleSave();
+        renderSidebar();
+      }
+    };
+
+    const txt = document.createElement('span');
+    txt.style.cssText = 'flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;';
+    txt.textContent = entry.text;
+
+    const dateLbl = document.createElement('span');
+    dateLbl.className = 'dn-followup-date';
+    dateLbl.textContent = dateStr;
+
+    row.onclick = () => {
+      dailyViewDate = dateStr;
+      dailyCalendarOpen = false;
+      renderSidebar();
+    };
+
+    row.appendChild(check);
+    row.appendChild(txt);
+    row.appendChild(dateLbl);
+    section.appendChild(row);
+  });
+
+  body.appendChild(section);
+}
+
+function renderDailyCalendar(body) {
+  if (!dailyCalendarMonth) {
+    const [y, m] = dailyViewDate.split('-').map(Number);
+    dailyCalendarMonth = { year: y, month: m };
+  }
+  const { year, month } = dailyCalendarMonth;
+  const today = todayDateStr();
+
+  const cal = document.createElement('div');
+  cal.className = 'dn-calendar';
+
+  // Header
+  const header = document.createElement('div');
+  header.className = 'dn-cal-header';
+  const prevMonthBtn = document.createElement('button');
+  prevMonthBtn.className = 'dn-cal-nav';
+  prevMonthBtn.innerHTML = '<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M6.5 2L3.5 5l3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  prevMonthBtn.onclick = (e) => {
+    e.stopPropagation();
+    dailyCalendarMonth.month--;
+    if (dailyCalendarMonth.month < 1) { dailyCalendarMonth.month = 12; dailyCalendarMonth.year--; }
+    renderSidebar();
+  };
+
+  const nextMonthBtn = document.createElement('button');
+  nextMonthBtn.className = 'dn-cal-nav';
+  nextMonthBtn.innerHTML = '<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M3.5 2L6.5 5l-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  nextMonthBtn.onclick = (e) => {
+    e.stopPropagation();
+    dailyCalendarMonth.month++;
+    if (dailyCalendarMonth.month > 12) { dailyCalendarMonth.month = 1; dailyCalendarMonth.year++; }
+    renderSidebar();
+  };
+
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const title = document.createElement('span');
+  title.className = 'dn-cal-title';
+  title.textContent = months[month - 1] + ' ' + year;
+
+  header.appendChild(prevMonthBtn);
+  header.appendChild(title);
+  header.appendChild(nextMonthBtn);
+  cal.appendChild(header);
+
+  // Day of week headers
+  const grid = document.createElement('div');
+  grid.className = 'dn-cal-grid';
+  ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].forEach(dow => {
+    const cell = document.createElement('div');
+    cell.className = 'dn-cal-dow';
+    cell.textContent = dow;
+    grid.appendChild(cell);
+  });
+
+  // Calendar days
+  const firstDay = new Date(year, month - 1, 1).getDay();
+  const daysInMonth = new Date(year, month, 0).getDate();
+  const daysInPrevMonth = new Date(year, month - 1, 0).getDate();
+
+  // Previous month fill
+  for (let i = firstDay - 1; i >= 0; i--) {
+    const cell = document.createElement('div');
+    cell.className = 'dn-cal-day other-month';
+    cell.textContent = daysInPrevMonth - i;
+    grid.appendChild(cell);
+  }
+
+  // Current month
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dateStr = year + '-' + String(month).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+    const cell = document.createElement('div');
+    let cls = 'dn-cal-day';
+    if (dateStr === today) cls += ' today';
+    if (dateStr === dailyViewDate) cls += ' selected';
+    if (state.dailyNotes[dateStr] && state.dailyNotes[dateStr].entries.length > 0) cls += ' has-entries';
+    cell.className = cls;
+    cell.textContent = d;
+    cell.onclick = (e) => {
+      e.stopPropagation();
+      dailyViewDate = dateStr;
+      dailyCalendarOpen = false;
+      renderSidebar();
+    };
+    grid.appendChild(cell);
+  }
+
+  // Next month fill
+  const totalCells = firstDay + daysInMonth;
+  const remaining = (7 - (totalCells % 7)) % 7;
+  for (let i = 1; i <= remaining; i++) {
+    const cell = document.createElement('div');
+    cell.className = 'dn-cal-day other-month';
+    cell.textContent = i;
+    grid.appendChild(cell);
+  }
+
+  cal.appendChild(grid);
+  body.appendChild(cal);
 }
 
 $('sidebar-btn').onclick = () => toggleSidebar();

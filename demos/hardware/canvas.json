@@ -1,0 +1,754 @@
+{
+  "name": "SensorHub Rev 2.1",
+  "pan": {
+    "x": -100,
+    "y": -50
+  },
+  "zoom": 0.6,
+  "items": [
+    {
+      "id": "frame_overview",
+      "type": "frame",
+      "x": 0,
+      "y": 0,
+      "width": 1080,
+      "height": 480,
+      "bgColor": "sage",
+      "tags": [],
+      "createdAt": 1715500000000,
+      "modifiedAt": 1715500000000
+    },
+    {
+      "id": "note_title",
+      "type": "text",
+      "x": 30,
+      "y": 30,
+      "width": 320,
+      "height": 180,
+      "content": "SensorHub Rev 2.1\n\nCompact multi-sensor BLE module for environmental monitoring and motion detection.\n\nMCU: ESP32-S3-WROOM-1\nSensors: SHT40 (T/H), LIS3DH (accel)\nConnectivity: BLE 5.0\nPower: USB-C + 500mAh LiPo\nBoard: 32x24mm, 4-layer, ENIG",
+      "contentHtml": "<h1>SensorHub Rev 2.1</h1><p>Compact multi-sensor BLE module for environmental monitoring and motion detection.</p><p><strong>MCU:</strong> ESP32-S3-WROOM-1<br><strong>Sensors:</strong> SHT40 (T/H), LIS3DH (accel)<br><strong>Connectivity:</strong> BLE 5.0<br><strong>Power:</strong> USB-C + 500mAh LiPo<br><strong>Board:</strong> 32&times;24mm, 4-layer, ENIG</p>",
+      "bgColor": null,
+      "tags": [
+        "overview",
+        "spec"
+      ],
+      "pinned": true,
+      "createdAt": 1715500000000,
+      "modifiedAt": 1715500000000
+    },
+    {
+      "id": "img_block_diagram",
+      "type": "image",
+      "x": 370,
+      "y": 40,
+      "width": 400,
+      "height": 280,
+      "file": "block-diagram.svg",
+      "tags": [
+        "overview"
+      ],
+      "noteItemId": "note_block_explain",
+      "createdAt": 1715500000000,
+      "modifiedAt": 1715500000000
+    },
+    {
+      "id": "note_block_explain",
+      "type": "text",
+      "x": 780,
+      "y": 40,
+      "width": 270,
+      "height": 160,
+      "content": "Signal Flow\n\nAll sensors communicate via I2C at 400kHz. The ESP32-S3 acts as bus master.\n\n- SHT40: polled every 2s\n- LIS3DH: interrupt-driven (GPIO6)\n- EEPROM: config storage on boot\n\nBLE advertising every 1s in active mode.",
+      "contentHtml": "<h2>Signal Flow</h2><p>All sensors communicate via <strong>I2C</strong> at 400kHz. The ESP32-S3 acts as bus master.</p><ul><li>SHT40: polled every 2s</li><li>LIS3DH: interrupt-driven (GPIO6)</li><li>EEPROM: config storage on boot</li></ul><p>BLE advertising every 1s in active mode.</p>",
+      "bgColor": null,
+      "tags": [
+        "overview"
+      ],
+      "linkedImageId": "img_block_diagram",
+      "createdAt": 1715500000000,
+      "modifiedAt": 1715500000000
+    },
+    {
+      "id": "note_specs_table",
+      "type": "text",
+      "x": 30,
+      "y": 220,
+      "width": 320,
+      "height": 240,
+      "content": "Key Specifications\n\nVIN (USB): 5V +/-5%\nVREG out: 3.3V +/-2%\nActive current: ~356mA peak\nSleep current: <12uA\nDimensions: 32 x 24 x 4.2mm\nWeight: ~6g (excl. battery)\nTemp range: -20C to +60C\nBLE range: >30m (open air)",
+      "contentHtml": "<h2>Key Specifications</h2><table><thead><tr><th>Parameter</th><th>Value</th></tr></thead><tbody><tr><td>VIN (USB)</td><td>5V &plusmn;5%</td></tr><tr><td>VREG out</td><td>3.3V &plusmn;2%</td></tr><tr><td>Active current</td><td>~356mA peak</td></tr><tr><td>Sleep current</td><td>&lt;12&mu;A</td></tr><tr><td>Dimensions</td><td>32 &times; 24 &times; 4.2mm</td></tr><tr><td>Weight</td><td>~6g (excl. battery)</td></tr><tr><td>Temp range</td><td>&minus;20&deg;C to +60&deg;C</td></tr><tr><td>BLE range</td><td>&gt;30m (open air)</td></tr></tbody></table>",
+      "bgColor": null,
+      "tags": [
+        "overview",
+        "spec"
+      ],
+      "createdAt": 1715500000000,
+      "modifiedAt": 1715500000000
+    },
+    {
+      "id": "frame_power",
+      "type": "frame",
+      "x": 1130,
+      "y": 0,
+      "width": 1080,
+      "height": 480,
+      "bgColor": "sky",
+      "tags": [],
+      "createdAt": 1715500100000,
+      "modifiedAt": 1715500100000
+    },
+    {
+      "id": "img_power_tree",
+      "type": "image",
+      "x": 1160,
+      "y": 40,
+      "width": 380,
+      "height": 240,
+      "file": "power-tree.svg",
+      "tags": [
+        "power"
+      ],
+      "createdAt": 1715500100000,
+      "modifiedAt": 1715500100000
+    },
+    {
+      "id": "note_regulator",
+      "type": "text",
+      "x": 1560,
+      "y": 40,
+      "width": 300,
+      "height": 200,
+      "content": "Regulator Selection\n\nPrimary: TPS63020 (TI)\n- Buck-boost, 96% efficiency\n- 3.3V output, 2A max\n- Input: 1.8V-5.5V\n\nAlternatives evaluated:\n- TPS63802: newer, smaller (2x1.5mm) but $$\n- AP3429: cheaper, buck-only (no LiPo deep discharge)\n\nDecision: Keep TPS63020 unless lead-time forces change.",
+      "contentHtml": "<h2>Regulator Selection</h2><p><strong>Primary: TPS63020</strong> (TI)</p><ul><li>Buck-boost, 96% efficiency</li><li>3.3V output, 2A max</li><li>Input: 1.8V&ndash;5.5V</li></ul><p><strong>Alternatives evaluated:</strong></p><ul><li>TPS63802 &mdash; newer, smaller (2&times;1.5mm) but $$</li><li>AP3429 &mdash; cheaper, buck-only (no LiPo deep discharge)</li></ul><p><strong>Decision:</strong> Keep TPS63020 unless lead-time forces change.</p>",
+      "bgColor": null,
+      "tags": [
+        "power",
+        "design"
+      ],
+      "createdAt": 1715500100000,
+      "modifiedAt": 1715500100000
+    },
+    {
+      "id": "action_ripple",
+      "type": "text",
+      "x": 1160,
+      "y": 300,
+      "width": 380,
+      "height": 50,
+      "content": "Measure 3.3V rail ripple under BLE TX burst \u2014 target <20mVpp",
+      "contentHtml": "<p>Measure 3.3V rail ripple under BLE TX burst &mdash; target &lt;20mVpp</p>",
+      "bgColor": null,
+      "tags": [
+        "action",
+        "self",
+        "p1",
+        "power"
+      ],
+      "createdAt": 1715500100000,
+      "modifiedAt": 1715500100000
+    },
+    {
+      "id": "note_battery_life",
+      "type": "text",
+      "x": 1560,
+      "y": 260,
+      "width": 300,
+      "height": 200,
+      "content": "Battery Life Estimate\n\nActive (BLE TX):  350mA x 5ms  = 1.75mAs/event\nIdle (sensors):    12mA x 100ms = 1.2mAs/cycle\nDeep sleep:        12uA\n\nAt 1 event/sec:\n  Avg = ~15mA\n  500mAh / 15mA = 33 hours\n\nAt 0.1 event/sec (low power):\n  Avg = ~2mA\n  500mAh / 2mA = 250 hours (~10 days)",
+      "contentHtml": "<h2>Battery Life Estimate</h2><pre>Active (BLE TX):  350mA &times; 5ms  = 1.75mAs/event\nIdle (sensors):    12mA &times; 100ms = 1.2mAs/cycle\nDeep sleep:        12&mu;A\n\nAt 1 event/sec:\n  Avg = ~15mA\n  500mAh / 15mA &asymp; 33 hours\n\nAt 0.1 event/sec (low power):\n  Avg = ~2mA\n  500mAh / 2mA &asymp; 250 hours (~10 days)</pre>",
+      "bgColor": null,
+      "tags": [
+        "power"
+      ],
+      "createdAt": 1715500100000,
+      "modifiedAt": 1715500100000
+    },
+    {
+      "id": "frame_mcu",
+      "type": "frame",
+      "x": 0,
+      "y": 530,
+      "width": 1080,
+      "height": 520,
+      "bgColor": "peach",
+      "tags": [],
+      "createdAt": 1715500200000,
+      "modifiedAt": 1715500200000
+    },
+    {
+      "id": "img_pin_map",
+      "type": "image",
+      "x": 30,
+      "y": 560,
+      "width": 360,
+      "height": 300,
+      "file": "pin-map.svg",
+      "tags": [
+        "mcu"
+      ],
+      "createdAt": 1715500200000,
+      "modifiedAt": 1715500200000
+    },
+    {
+      "id": "note_i2c_map",
+      "type": "text",
+      "x": 420,
+      "y": 560,
+      "width": 320,
+      "height": 200,
+      "content": "I2C Address Map\n\nDevice | Address | Speed\nSHT40 | 0x44 | 400kHz\nLIS3DH | 0x19 | 400kHz\nEEPROM | 0x50 | 400kHz\n\nBus pull-ups: 4.7k to 3.3V\nBus capacitance: ~40pF (estimated)",
+      "contentHtml": "<h2>I2C Address Map</h2><table><thead><tr><th>Device</th><th>Address</th><th>Speed</th></tr></thead><tbody><tr><td>SHT40</td><td><code>0x44</code></td><td>400kHz</td></tr><tr><td>LIS3DH</td><td><code>0x19</code></td><td>400kHz</td></tr><tr><td>EEPROM</td><td><code>0x50</code></td><td>400kHz</td></tr></tbody></table><p><strong>Bus pull-ups:</strong> 4.7k&Omega; to 3.3V<br><strong>Bus capacitance:</strong> ~40pF (estimated)</p>",
+      "bgColor": null,
+      "tags": [
+        "mcu",
+        "interfaces"
+      ],
+      "createdAt": 1715500200000,
+      "modifiedAt": 1715500200000
+    },
+    {
+      "id": "action_strapping",
+      "type": "text",
+      "x": 420,
+      "y": 780,
+      "width": 380,
+      "height": 50,
+      "content": "Verify GPIO12/13 not strapping pins \u2014 review TRM section 2.4",
+      "contentHtml": "<p>Verify GPIO12/13 not strapping pins &mdash; review TRM &sect;2.4</p>",
+      "bgColor": null,
+      "tags": [
+        "action",
+        "self",
+        "p2",
+        "mcu"
+      ],
+      "createdAt": 1715500200000,
+      "modifiedAt": 1715500200000
+    },
+    {
+      "id": "note_interface_config",
+      "type": "text",
+      "x": 770,
+      "y": 560,
+      "width": 280,
+      "height": 300,
+      "content": "Interface Configuration\n\nI2C (GPIO8/9):\n- 4.7k pull-ups\n- 100pF decoupling on SDA/SCL\n- 400kHz fast mode\n\nSPI (GPIO10-13):\n- Reserved for future flash expansion\n- Not populated on Rev 2.1\n\nUART (GPIO43/44):\n- Debug console, 115200 baud\n- Level shifter to 1.8V for production\n\nADC (GPIO1/2):\n- VBAT divider: 100k/100k\n- NTC: 10k B=3950",
+      "contentHtml": "<h2>Interface Configuration</h2><p><strong>I2C (GPIO8/9):</strong></p><ul><li>4.7k&Omega; pull-ups</li><li>100pF decoupling on SDA/SCL</li><li>400kHz fast mode</li></ul><p><strong>SPI (GPIO10&ndash;13):</strong></p><ul><li>Reserved for future flash expansion</li><li>Not populated on Rev 2.1</li></ul><p><strong>UART (GPIO43/44):</strong></p><ul><li>Debug console, 115200 baud</li><li>Level shifter to 1.8V for production</li></ul><p><strong>ADC (GPIO1/2):</strong></p><ul><li>VBAT divider: 100k/100k</li><li>NTC: 10k&Omega; B=3950</li></ul>",
+      "bgColor": null,
+      "tags": [
+        "mcu",
+        "interfaces"
+      ],
+      "collapsed": true,
+      "createdAt": 1715500200000,
+      "modifiedAt": 1715500200000
+    },
+    {
+      "id": "frame_bom",
+      "type": "frame",
+      "x": 1130,
+      "y": 530,
+      "width": 1080,
+      "height": 520,
+      "bgColor": "lavender",
+      "tags": [],
+      "createdAt": 1715500300000,
+      "modifiedAt": 1715500300000
+    },
+    {
+      "id": "note_bom_table",
+      "type": "text",
+      "x": 1160,
+      "y": 560,
+      "width": 520,
+      "height": 280,
+      "content": "BOM \u2014 Key Components\n\nU1 ESP32-S3-WROOM-1 Espressif 1 In stock\nU2 MCP73831T Microchip 1 In stock\nU3 TPS63020 TI 1 16-wk lead\nU4 SHT40-AD1B Sensirion 1 In stock\nU5 LIS3DHTR ST 1 In stock\nU6 AT24C256 Microchip 1 In stock\nJ1 USB-C 16pin GCT 1 In stock\nJ2 JST-PH 2pin JST 1 In stock",
+      "contentHtml": "<h2>BOM &mdash; Key Components</h2><table><thead><tr><th>Ref</th><th>Part</th><th>Mfg</th><th>Qty</th><th>Status</th></tr></thead><tbody><tr><td>U1</td><td>ESP32-S3-WROOM-1</td><td>Espressif</td><td>1</td><td>In stock</td></tr><tr><td>U2</td><td>MCP73831T</td><td>Microchip</td><td>1</td><td>In stock</td></tr><tr><td>U3</td><td>TPS63020</td><td>TI</td><td>1</td><td>&#9888;&#65039; 16-wk lead</td></tr><tr><td>U4</td><td>SHT40-AD1B</td><td>Sensirion</td><td>1</td><td>In stock</td></tr><tr><td>U5</td><td>LIS3DHTR</td><td>ST</td><td>1</td><td>In stock</td></tr><tr><td>U6</td><td>AT24C256</td><td>Microchip</td><td>1</td><td>In stock</td></tr><tr><td>J1</td><td>USB-C 16pin</td><td>GCT</td><td>1</td><td>In stock</td></tr><tr><td>J2</td><td>JST-PH 2pin</td><td>JST</td><td>1</td><td>In stock</td></tr></tbody></table>",
+      "bgColor": null,
+      "tags": [
+        "bom",
+        "sourcing"
+      ],
+      "createdAt": 1715500300000,
+      "modifiedAt": 1715500300000
+    },
+    {
+      "id": "action_leadtime",
+      "type": "text",
+      "x": 1160,
+      "y": 860,
+      "width": 400,
+      "height": 50,
+      "content": "U3 TPS63020 \u2014 16-wk lead time. Evaluate TPS63802 as drop-in.",
+      "contentHtml": "<p>U3 TPS63020 &mdash; 16-wk lead time. Evaluate TPS63802 as drop-in.</p>",
+      "bgColor": null,
+      "tags": [
+        "action",
+        "self",
+        "p1",
+        "bom"
+      ],
+      "createdAt": 1715500300000,
+      "modifiedAt": 1715500300000
+    },
+    {
+      "id": "note_vendor_status",
+      "type": "text",
+      "x": 1700,
+      "y": 560,
+      "width": 280,
+      "height": 150,
+      "content": "Vendor Status\n\nMouser: Quote pending (submitted 5/9)\nDigiKey: Backordered on TPS63020\nLCSC: All passives available\nDirect TI: Contacted FAE for samples\n\nTarget: final BOM lock by May 23",
+      "contentHtml": "<h2>Vendor Status</h2><ul><li><strong>Mouser:</strong> Quote pending (submitted 5/9)</li><li><strong>DigiKey:</strong> Backordered on TPS63020</li><li><strong>LCSC:</strong> All passives available</li><li><strong>Direct TI:</strong> Contacted FAE for samples</li></ul><p>Target: final BOM lock by <strong>May 23</strong></p>",
+      "bgColor": null,
+      "tags": [
+        "bom",
+        "sourcing"
+      ],
+      "createdAt": 1715500300000,
+      "modifiedAt": 1715500300000
+    },
+    {
+      "id": "note_cost_summary",
+      "type": "text",
+      "x": 1700,
+      "y": 730,
+      "width": 280,
+      "height": 220,
+      "content": "Cost Summary\n\nMCU + antenna: $3.20\nPower ICs: $1.85\nSensors: $4.10\nConnectors: $0.60\nPassives: $0.35\nPCB (qty 100): $1.20\nAssembly: $2.50\nTotal: $13.80\n\nTarget: <$12 at 1k qty",
+      "contentHtml": "<h2>Cost Summary</h2><table><thead><tr><th>Category</th><th>Unit Cost</th></tr></thead><tbody><tr><td>MCU + antenna</td><td>$3.20</td></tr><tr><td>Power ICs</td><td>$1.85</td></tr><tr><td>Sensors</td><td>$4.10</td></tr><tr><td>Connectors</td><td>$0.60</td></tr><tr><td>Passives</td><td>$0.35</td></tr><tr><td>PCB (qty 100)</td><td>$1.20</td></tr><tr><td>Assembly</td><td>$2.50</td></tr><tr><td><strong>Total</strong></td><td><strong>$13.80</strong></td></tr></tbody></table><p>Target: &lt;$12 at 1k qty</p>",
+      "bgColor": null,
+      "tags": [
+        "bom",
+        "sourcing"
+      ],
+      "collapsed": true,
+      "createdAt": 1715500300000,
+      "modifiedAt": 1715500300000
+    },
+    {
+      "id": "frame_testing",
+      "type": "frame",
+      "x": 250,
+      "y": 1100,
+      "width": 1500,
+      "height": 600,
+      "bgColor": "pink",
+      "tags": [],
+      "createdAt": 1715500400000,
+      "modifiedAt": 1715500400000
+    },
+    {
+      "id": "note_review",
+      "type": "text",
+      "x": 280,
+      "y": 1130,
+      "width": 420,
+      "height": 280,
+      "content": "Design Review \u2014 May 9, 2026\n\nAttendees: Sarah (lead), Alex (FW), Mike (mech)\n\nDecisions\n- Approved 4-layer stackup (SIG/GND/PWR/SIG)\n- Keep USB-C on edge; rotate battery connector 90 deg\n- Add test pads for I2C, VBAT, 3V3, GND\n\nOpen items\n- Thermal relief on GND pour under ESP32\n- Confirm BLE antenna clearance with mech enclosure\n- Alex to update I2C driver for new SHT40 address\n\nNext review: May 23 (pre-tapeout)",
+      "contentHtml": "<h2>Design Review &mdash; May 9, 2026</h2><p><strong>Attendees:</strong> Sarah (lead), Alex (FW), Mike (mech)</p><h3>Decisions</h3><ul><li>Approved 4-layer stackup (SIG/GND/PWR/SIG)</li><li>Keep USB-C on edge; rotate battery connector 90&deg;</li><li>Add test pads for I2C, VBAT, 3V3, GND</li></ul><h3>Open items</h3><ul><li>Thermal relief on GND pour under ESP32</li><li>Confirm BLE antenna clearance with mech enclosure</li><li>Alex to update I2C driver for new SHT40 address</li></ul><h3>Next review: May 23 (pre-tapeout)</h3>",
+      "bgColor": null,
+      "tags": [
+        "testing",
+        "review"
+      ],
+      "createdAt": 1715500400000,
+      "modifiedAt": 1715500400000
+    },
+    {
+      "id": "note_test_plan",
+      "type": "text",
+      "x": 720,
+      "y": 1130,
+      "width": 380,
+      "height": 300,
+      "content": "Test Plan \u2014 Rev 2.1\n\nPower-on sequence (USB, battery, both)\n3.3V rail regulation under load steps\nBLE range test (30m open air target)\nSensor accuracy vs reference (SHT40 +/-0.2C)\nAccelerometer self-test (LIS3DH)\nSleep current measurement (<12uA)\nThermal imaging under sustained BLE TX\nESD test (+/-4kV contact, +/-8kV air)\nUSB PD negotiation (5V/500mA)\nOrder Rev 2.0 prototypes from JLCPCB (done)",
+      "contentHtml": "<h2>Test Plan &mdash; Rev 2.1</h2><div class=\"cb-line\"><input type=\"checkbox\"><span>Power-on sequence (USB, battery, both)</span></div><div class=\"cb-line\"><input type=\"checkbox\"><span>3.3V rail regulation under load steps</span></div><div class=\"cb-line\"><input type=\"checkbox\"><span>BLE range test (30m open air target)</span></div><div class=\"cb-line\"><input type=\"checkbox\"><span>Sensor accuracy vs reference (SHT40 &plusmn;0.2&deg;C)</span></div><div class=\"cb-line\"><input type=\"checkbox\"><span>Accelerometer self-test (LIS3DH)</span></div><div class=\"cb-line\"><input type=\"checkbox\"><span>Sleep current measurement (&lt;12&mu;A)</span></div><div class=\"cb-line\"><input type=\"checkbox\"><span>Thermal imaging under sustained BLE TX</span></div><div class=\"cb-line\"><input type=\"checkbox\"><span>ESD test (&plusmn;4kV contact, &plusmn;8kV air)</span></div><div class=\"cb-line\"><input type=\"checkbox\"><span>USB PD negotiation (5V/500mA)</span></div><div class=\"cb-line done\"><input type=\"checkbox\" checked><span>Order Rev 2.0 prototypes from JLCPCB</span></div>",
+      "bgColor": null,
+      "tags": [
+        "testing"
+      ],
+      "createdAt": 1715500400000,
+      "modifiedAt": 1715500400000
+    },
+    {
+      "id": "action_proto_order",
+      "type": "text",
+      "x": 280,
+      "y": 1430,
+      "width": 360,
+      "height": 50,
+      "content": "Order Rev 2.0 prototypes from JLCPCB",
+      "contentHtml": "<p>Order Rev 2.0 prototypes from JLCPCB</p>",
+      "bgColor": null,
+      "tags": [
+        "action",
+        "done",
+        "testing"
+      ],
+      "createdAt": 1715500400000,
+      "modifiedAt": 1715500450000
+    },
+    {
+      "id": "action_alex_driver",
+      "type": "text",
+      "x": 660,
+      "y": 1430,
+      "width": 380,
+      "height": 50,
+      "content": "Alex: Update I2C driver for new sensor address (SHT40 0x44 to 0x45 on Rev 2.1)",
+      "contentHtml": "<p>Alex: Update I2C driver for new sensor address (SHT40 0x44&rarr;0x45 on Rev 2.1)</p>",
+      "bgColor": null,
+      "tags": [
+        "action",
+        "1:1/alex",
+        "p2",
+        "testing"
+      ],
+      "createdAt": 1715500400000,
+      "modifiedAt": 1715500400000
+    },
+    {
+      "id": "action_drc",
+      "type": "text",
+      "x": 1060,
+      "y": 1430,
+      "width": 340,
+      "height": 50,
+      "content": "Run DRC with 6mil clearance rules before tapeout",
+      "contentHtml": "<p>Run DRC with 6mil clearance rules before tapeout</p>",
+      "bgColor": null,
+      "tags": [
+        "action",
+        "self",
+        "p2",
+        "review"
+      ],
+      "createdAt": 1715500400000,
+      "modifiedAt": 1715500400000
+    },
+    {
+      "id": "note_quickref",
+      "type": "text",
+      "x": 2300,
+      "y": 30,
+      "width": 280,
+      "height": 240,
+      "content": "ESP32-S3 Absolute Max Ratings\n\nVDD: -0.3V to 3.6V\nGPIO voltage: -0.3V to 3.6V\nInput current: 50mA max\nStorage temp: -40C to 150C\nESD (HBM): 2kV\n\nDo NOT exceed 3.6V on any pin.\n\nDatasheet: ESP32-S3 v1.3, section 5.2",
+      "contentHtml": "<h2>ESP32-S3 Absolute Max Ratings</h2><table><thead><tr><th>Parameter</th><th>Min</th><th>Max</th></tr></thead><tbody><tr><td>VDD</td><td>&minus;0.3V</td><td>3.6V</td></tr><tr><td>GPIO voltage</td><td>&minus;0.3V</td><td>3.6V</td></tr><tr><td>Input current</td><td>&mdash;</td><td>50mA</td></tr><tr><td>Storage temp</td><td>&minus;40&deg;C</td><td>150&deg;C</td></tr><tr><td>ESD (HBM)</td><td>&mdash;</td><td>2kV</td></tr></tbody></table><p>&#9888;&#65039; Do <strong>NOT</strong> exceed 3.6V on any pin.</p><p><code>Datasheet: ESP32-S3 v1.3, &sect;5.2</code></p>",
+      "bgColor": "cream",
+      "tags": [
+        "spec"
+      ],
+      "pinned": true,
+      "createdAt": 1715500000000,
+      "modifiedAt": 1715500000000
+    },
+    {
+      "id": "img_pcb_outline",
+      "type": "image",
+      "x": 1120,
+      "y": 1130,
+      "width": 360,
+      "height": 260,
+      "file": "pcb-outline.svg",
+      "tags": [
+        "testing",
+        "review"
+      ],
+      "createdAt": 1715500400000,
+      "modifiedAt": 1715500400000
+    },
+    {
+      "id": "frame_references",
+      "type": "frame",
+      "x": 2260,
+      "y": 320,
+      "width": 680,
+      "height": 900,
+      "bgColor": "cream",
+      "tags": [],
+      "createdAt": 1715500500000,
+      "modifiedAt": 1715500500000
+    },
+    {
+      "id": "note_datasheets",
+      "type": "text",
+      "x": 2290,
+      "y": 350,
+      "width": 310,
+      "height": 320,
+      "content": "Datasheets & Reference Docs\n\nESP32-S3 Technical Reference Manual\nhttps://www.espressif.com/sites/default/files/documentation/esp32-s3_technical_reference_manual_en.pdf\n\nSHT40 Datasheet (Sensirion)\nhttps://sensirion.com/media/documents/33FD6951/662A593A/Sensirion_Datasheet_SHT4x.pdf\n\nLIS3DH Datasheet (ST)\nhttps://www.st.com/resource/en/datasheet/lis3dh.pdf\n\nTPS63020 Datasheet (TI)\nhttps://www.ti.com/lit/ds/symlink/tps63020.pdf\n\nUSB Type-C Specification\nhttps://www.usb.org/document-library/usb-type-cr-cable-and-connector-specification-revision-21",
+      "contentHtml": "<h2>Datasheets &amp; Reference Docs</h2><p><strong>ESP32-S3 Technical Reference Manual</strong><br><a href=\"https://www.espressif.com/sites/default/files/documentation/esp32-s3_technical_reference_manual_en.pdf\">espressif.com &mdash; ESP32-S3 TRM (PDF)</a></p><p><strong>SHT40 Datasheet</strong> (Sensirion)<br><a href=\"https://sensirion.com/media/documents/33FD6951/662A593A/Sensirion_Datasheet_SHT4x.pdf\">sensirion.com &mdash; SHT4x Datasheet (PDF)</a></p><p><strong>LIS3DH Datasheet</strong> (ST)<br><a href=\"https://www.st.com/resource/en/datasheet/lis3dh.pdf\">st.com &mdash; LIS3DH Datasheet (PDF)</a></p><p><strong>TPS63020 Datasheet</strong> (TI)<br><a href=\"https://www.ti.com/lit/ds/symlink/tps63020.pdf\">ti.com &mdash; TPS63020 Datasheet (PDF)</a></p><p><strong>USB Type-C Specification</strong><br><a href=\"https://www.usb.org/document-library/usb-type-cr-cable-and-connector-specification-revision-21\">usb.org &mdash; USB-C Rev 2.1 Spec</a></p>",
+      "bgColor": null,
+      "tags": [
+        "reference",
+        "spec"
+      ],
+      "createdAt": 1715500500000,
+      "modifiedAt": 1715500500000
+    },
+    {
+      "id": "note_industry_links",
+      "type": "text",
+      "x": 2620,
+      "y": 350,
+      "width": 300,
+      "height": 320,
+      "content": "Industry Resources\n\nNVIDIA Jetson Power Design Guide\nhttps://developer.nvidia.com/embedded/dlc/jetson-nano-system-module-datasheet\n\nAMD Xilinx Power Estimation\nhttps://docs.amd.com/r/en-US/ug440-xilinx-power-estimator\n\nI2C Bus Specification (NXP)\nhttps://www.nxp.com/docs/en/user-guide/UM10204.pdf\n\nWikipedia: BLE (Bluetooth Low Energy)\nhttps://en.wikipedia.org/wiki/Bluetooth_Low_Energy\n\nWikipedia: I2C Protocol\nhttps://en.wikipedia.org/wiki/I%C2%B2C\n\nWikipedia: PCB Design\nhttps://en.wikipedia.org/wiki/Printed_circuit_board",
+      "contentHtml": "<h2>Industry Resources</h2><p><strong>NVIDIA</strong> &mdash; Jetson Power Design Guide<br><a href=\"https://developer.nvidia.com/embedded/dlc/jetson-nano-system-module-datasheet\">developer.nvidia.com &mdash; Jetson Module Datasheet</a></p><p><strong>AMD/Xilinx</strong> &mdash; Power Estimation Tools<br><a href=\"https://docs.amd.com/r/en-US/ug440-xilinx-power-estimator\">docs.amd.com &mdash; Xilinx Power Estimator (UG440)</a></p><p><strong>NXP</strong> &mdash; I&sup2;C Bus Specification<br><a href=\"https://www.nxp.com/docs/en/user-guide/UM10204.pdf\">nxp.com &mdash; UM10204 I2C Spec (PDF)</a></p><hr><p><strong>Wikipedia References:</strong></p><ul><li><a href=\"https://en.wikipedia.org/wiki/Bluetooth_Low_Energy\">Bluetooth Low Energy</a></li><li><a href=\"https://en.wikipedia.org/wiki/I%C2%B2C\">I&sup2;C Protocol</a></li><li><a href=\"https://en.wikipedia.org/wiki/Printed_circuit_board\">Printed Circuit Board Design</a></li></ul>",
+      "bgColor": null,
+      "tags": [
+        "reference"
+      ],
+      "createdAt": 1715500500000,
+      "modifiedAt": 1715500500000
+    },
+    {
+      "id": "note_design_checklist",
+      "type": "text",
+      "x": 2290,
+      "y": 690,
+      "width": 310,
+      "height": 340,
+      "content": "Pre-Tapeout Checklist\n\nSchematic Review\n- Power rails verified against datasheet abs max\n- Decoupling caps on every IC VDD pin\n- ESD protection on USB & antenna\n- Pull-ups/downs on all strapping pins\n- Crystal load caps calculated\n\nLayout Review\n- 4-layer stackup verified with fab\n- Antenna keep-out zone clear\n- Thermal vias under QFN pads\n- Test points accessible\n- Silkscreen readable at 0.8mm height\n\nFabrication\n- Gerbers generated and DRC clean\n- Drill file matches via sizes\n- Impedance control noted on fab drawing\n- Panel dimensions confirmed with assembler",
+      "contentHtml": "<h2>Pre-Tapeout Checklist</h2><h3>Schematic Review</h3><div class=\"cb-line done\"><input type=\"checkbox\" checked><span>Power rails verified against datasheet abs max</span></div><div class=\"cb-line done\"><input type=\"checkbox\" checked><span>Decoupling caps on every IC VDD pin</span></div><div class=\"cb-line done\"><input type=\"checkbox\" checked><span>ESD protection on USB &amp; antenna</span></div><div class=\"cb-line\"><input type=\"checkbox\"><span>Pull-ups/downs on all strapping pins</span></div><div class=\"cb-line done\"><input type=\"checkbox\" checked><span>Crystal load caps calculated</span></div><h3>Layout Review</h3><div class=\"cb-line done\"><input type=\"checkbox\" checked><span>4-layer stackup verified with fab</span></div><div class=\"cb-line\"><input type=\"checkbox\"><span>Antenna keep-out zone clear</span></div><div class=\"cb-line\"><input type=\"checkbox\"><span>Thermal vias under QFN pads</span></div><div class=\"cb-line done\"><input type=\"checkbox\" checked><span>Test points accessible</span></div><div class=\"cb-line\"><input type=\"checkbox\"><span>Silkscreen readable at 0.8mm height</span></div><h3>Fabrication</h3><div class=\"cb-line\"><input type=\"checkbox\"><span>Gerbers generated and DRC clean</span></div><div class=\"cb-line\"><input type=\"checkbox\"><span>Drill file matches via sizes</span></div><div class=\"cb-line\"><input type=\"checkbox\"><span>Impedance control noted on fab drawing</span></div><div class=\"cb-line\"><input type=\"checkbox\"><span>Panel dimensions confirmed with assembler</span></div>",
+      "bgColor": "sage",
+      "tags": [
+        "review",
+        "reference"
+      ],
+      "createdAt": 1715500500000,
+      "modifiedAt": 1715500500000
+    },
+    {
+      "id": "note_design_notes_long",
+      "type": "text",
+      "x": 2620,
+      "y": 690,
+      "width": 300,
+      "height": 520,
+      "content": "Thermal Management Notes\n\nThe ESP32-S3 dissipates approximately 1.2W during sustained BLE+WiFi TX at maximum power. The WROOM-1 module's metal shield acts as a modest heatsink, but in an enclosed plastic housing we expect junction temps to rise significantly.\n\nMeasured Thermals (Rev 2.0 prototype):\nAmbient 25C, no airflow, ABS enclosure:\n- ESP32 shield: 52C (steady state, BLE only)\n- ESP32 shield: 68C (WiFi+BLE concurrent)\n- TPS63020: 41C (350mA continuous load)\n- SHT40: 28C (self-heating <0.1C at 1 meas/sec)\n\nRecommendations for Rev 2.1:\n1. Add 4x thermal vias (0.3mm) under ESP32 GND pad, connected to internal GND plane\n2. Increase copper pour on top layer around power section \u2014 target 30% fill\n3. Consider 0.5mm FR4 core to reduce thermal resistance to bottom layer\n4. SHT40 placement: maintain 3mm clearance from any heat source. Current placement (bottom-left) is acceptable.\n5. Add thermal relief pattern on battery connector pads to prevent cold joints during reflow.\n\nThe thermal simulation (ANSYS Icepak) shows peak junction temp of 85C under worst-case conditions (WiFi+BLE, 45C ambient, sealed enclosure). This is within the -40 to +105C operating range but leaves limited margin. Recommend functional testing at 60C ambient to validate.\n\nReference: Espressif Technical Note TN-0001 'Thermal Design Guidelines for ESP32 Modules'",
+      "contentHtml": "<h2>Thermal Management Notes</h2><p>The ESP32-S3 dissipates approximately 1.2W during sustained BLE+WiFi TX at maximum power. The WROOM-1 module's metal shield acts as a modest heatsink, but in an enclosed plastic housing we expect junction temps to rise significantly.</p><h3>Measured Thermals (Rev 2.0 prototype)</h3><p><em>Ambient 25&deg;C, no airflow, ABS enclosure:</em></p><table><thead><tr><th>Component</th><th>Temp</th><th>Condition</th></tr></thead><tbody><tr><td>ESP32 shield</td><td>52&deg;C</td><td>BLE only</td></tr><tr><td>ESP32 shield</td><td>68&deg;C</td><td>WiFi+BLE concurrent</td></tr><tr><td>TPS63020</td><td>41&deg;C</td><td>350mA continuous</td></tr><tr><td>SHT40</td><td>28&deg;C</td><td>self-heating &lt;0.1&deg;C</td></tr></tbody></table><h3>Recommendations for Rev 2.1</h3><ol><li>Add 4&times; thermal vias (0.3mm) under ESP32 GND pad, connected to internal GND plane</li><li>Increase copper pour on top layer around power section &mdash; target 30% fill</li><li>Consider 0.5mm FR4 core to reduce thermal resistance to bottom layer</li><li>SHT40 placement: maintain 3mm clearance from any heat source. Current placement (bottom-left) is acceptable.</li><li>Add thermal relief pattern on battery connector pads to prevent cold joints during reflow.</li></ol><p>The thermal simulation (<em>ANSYS Icepak</em>) shows peak junction temp of <strong>85&deg;C</strong> under worst-case conditions (WiFi+BLE, 45&deg;C ambient, sealed enclosure). This is within the &minus;40 to +105&deg;C operating range but leaves limited margin. Recommend functional testing at 60&deg;C ambient to validate.</p><blockquote>Reference: Espressif Technical Note TN-0001 &lsquo;Thermal Design Guidelines for ESP32 Modules&rsquo;</blockquote>",
+      "bgColor": null,
+      "tags": [
+        "design",
+        "reference"
+      ],
+      "createdAt": 1715500500000,
+      "modifiedAt": 1715500500000
+    },
+    {
+      "id": "note_todo_firmware",
+      "type": "text",
+      "x": 2290,
+      "y": 1050,
+      "width": 310,
+      "height": 260,
+      "content": "Firmware Bring-up Tasks\n\nPhase 1 (Week 1)\n- BSP: clock config, GPIO init, UART debug\n- I2C driver: scan bus, verify all 3 devices respond\n- Power: implement deep sleep entry/exit\n\nPhase 2 (Week 2)\n- SHT40: single-shot and periodic measurement modes\n- LIS3DH: configure FIFO, interrupt on motion\n- BLE: advertising, GATT service for sensor data\n\nPhase 3 (Week 3)\n- OTA update mechanism via BLE\n- Watchdog timer, brownout detection\n- Production test mode (all LEDs, all sensors, RSSI)\n\nNotes:\n- Use ESP-IDF v5.2 (not Arduino framework)\n- Alex owns FW, Sarah reviews PRs\n- CI pipeline: build + static analysis on every push",
+      "contentHtml": "<h2>Firmware Bring-up Tasks</h2><h3>Phase 1 (Week 1)</h3><ul><li>BSP: clock config, GPIO init, UART debug</li><li>I2C driver: scan bus, verify all 3 devices respond</li><li>Power: implement deep sleep entry/exit</li></ul><h3>Phase 2 (Week 2)</h3><ul><li>SHT40: single-shot and periodic measurement modes</li><li>LIS3DH: configure FIFO, interrupt on motion</li><li>BLE: advertising, GATT service for sensor data</li></ul><h3>Phase 3 (Week 3)</h3><ul><li>OTA update mechanism via BLE</li><li>Watchdog timer, brownout detection</li><li>Production test mode (all LEDs, all sensors, RSSI)</li></ul><hr><p><strong>Notes:</strong></p><ul><li>Use ESP-IDF v5.2 (not Arduino framework)</li><li>Alex owns FW, Sarah reviews PRs</li><li>CI pipeline: build + static analysis on every push</li></ul>",
+      "bgColor": "sky",
+      "tags": [
+        "mcu",
+        "reference"
+      ],
+      "createdAt": 1715500500000,
+      "modifiedAt": 1715500500000
+    },
+    {
+      "id": "note_ble_protocol",
+      "type": "text",
+      "x": 2620,
+      "y": 1230,
+      "width": 300,
+      "height": 280,
+      "content": "BLE GATT Service Definition\n\nService UUID: 0x181A (Environmental Sensing)\n\nCharacteristics:\n- Temperature (0x2A6E): sint16, units 0.01 C\n- Humidity (0x2A6F): uint16, units 0.01 %RH  \n- Accel X/Y/Z (custom): sint16[3], units mg\n- Battery Level (0x2A19): uint8, 0-100%\n- Device Name (0x2A00): utf8s, max 20 chars\n\nAdvertising:\n- Interval: 1000ms (normal), 200ms (fast connect)\n- Payload: flags + complete local name + service UUID\n- TX Power: 0dBm (default), +9dBm (long range)\n\nSecurity:\n- Bonding: yes (store up to 4 peers)\n- MITM: no (no display/keyboard)\n- Encryption: AES-128-CCM\n\nSee: https://en.wikipedia.org/wiki/Bluetooth_Low_Energy#Software_model",
+      "contentHtml": "<h2>BLE GATT Service Definition</h2><p><strong>Service UUID:</strong> <code>0x181A</code> (Environmental Sensing)</p><h3>Characteristics</h3><table><thead><tr><th>Name</th><th>UUID</th><th>Type</th><th>Unit</th></tr></thead><tbody><tr><td>Temperature</td><td><code>0x2A6E</code></td><td>sint16</td><td>0.01&deg;C</td></tr><tr><td>Humidity</td><td><code>0x2A6F</code></td><td>uint16</td><td>0.01 %RH</td></tr><tr><td>Accel X/Y/Z</td><td>custom</td><td>sint16[3]</td><td>mg</td></tr><tr><td>Battery Level</td><td><code>0x2A19</code></td><td>uint8</td><td>0&ndash;100%</td></tr><tr><td>Device Name</td><td><code>0x2A00</code></td><td>utf8s</td><td>max 20 chars</td></tr></tbody></table><h3>Advertising</h3><ul><li>Interval: 1000ms (normal), 200ms (fast connect)</li><li>Payload: flags + complete local name + service UUID</li><li>TX Power: 0dBm (default), +9dBm (long range)</li></ul><h3>Security</h3><ul><li>Bonding: yes (store up to 4 peers)</li><li>MITM: no (no display/keyboard)</li><li>Encryption: AES-128-CCM</li></ul><p>See: <a href=\"https://en.wikipedia.org/wiki/Bluetooth_Low_Energy#Software_model\">Wikipedia &mdash; BLE Software Model</a></p>",
+      "bgColor": null,
+      "tags": [
+        "mcu",
+        "design"
+      ],
+      "createdAt": 1715500500000,
+      "modifiedAt": 1715500500000
+    },
+    {
+      "id": "docwindow_spec_pdf",
+      "type": "docwindow",
+      "x": 0,
+      "y": 1750,
+      "width": 620,
+      "height": 500,
+      "path": "spec-sh21-001.pdf",
+      "title": "SPEC-SH21-001 Design Specification",
+      "fileExt": "pdf",
+      "file": "spec-sh21-001.pdf",
+      "tags": [
+        "spec",
+        "reference"
+      ],
+      "createdAt": 1715500600000,
+      "modifiedAt": 1715500600000
+    }
+  ],
+  "dailyNotes": {
+    "2026-05-16": {
+      "date": "2026-05-16",
+      "createdAt": 1715846400000,
+      "modifiedAt": 1715846400000,
+      "summary": "Power tree finalized, BOM review with Sarah",
+      "entries": [
+        {
+          "id": "dn_1",
+          "time": "09:15",
+          "text": "Reviewed TPS63020 lead time issue \u2014 contacted TI FAE for expedite",
+          "done": true,
+          "tags": []
+        },
+        {
+          "id": "dn_2",
+          "time": "10:30",
+          "text": "Updated power tree diagram with final component values",
+          "done": true,
+          "tags": []
+        },
+        {
+          "id": "dn_3",
+          "time": "11:00",
+          "text": "BOM review meeting with Sarah \u2014 approved all parts except U3",
+          "done": true,
+          "tags": []
+        },
+        {
+          "id": "dn_4",
+          "time": "13:45",
+          "text": "Measure 3.3V rail ripple on Rev 2.0 board",
+          "done": false,
+          "tags": []
+        },
+        {
+          "id": "dn_5",
+          "time": "14:30",
+          "text": "Run DRC with updated clearance rules",
+          "done": false,
+          "tags": [
+            "followup"
+          ]
+        },
+        {
+          "id": "dn_6",
+          "time": "16:00",
+          "text": "Email JLCPCB about Rev 2.1 panel quote",
+          "done": false,
+          "tags": []
+        }
+      ]
+    },
+    "2026-05-15": {
+      "date": "2026-05-15",
+      "createdAt": 1715760000000,
+      "modifiedAt": 1715760000000,
+      "summary": "Design review, schematic updates",
+      "entries": [
+        {
+          "id": "dn_7",
+          "time": "09:00",
+          "text": "Prep design review slides \u2014 exported schematic PNGs",
+          "done": true,
+          "tags": []
+        },
+        {
+          "id": "dn_8",
+          "time": "10:00",
+          "text": "Design review with Sarah, Alex, Mike (notes in Testing frame)",
+          "done": true,
+          "tags": []
+        },
+        {
+          "id": "dn_9",
+          "time": "11:30",
+          "text": "Updated schematic: rotated battery connector, added test pads",
+          "done": true,
+          "tags": []
+        },
+        {
+          "id": "dn_10",
+          "time": "14:00",
+          "text": "Check thermal relief rules in Altium DRC settings",
+          "done": false,
+          "tags": [
+            "followup"
+          ]
+        },
+        {
+          "id": "dn_11",
+          "time": "15:00",
+          "text": "Verify antenna keep-out zone with mechanical enclosure model",
+          "done": false,
+          "tags": [
+            "followup"
+          ]
+        },
+        {
+          "id": "dn_12",
+          "time": "16:30",
+          "text": "Sent updated BOM to Mouser for re-quote",
+          "done": true,
+          "tags": []
+        }
+      ]
+    },
+    "2026-05-14": {
+      "date": "2026-05-14",
+      "createdAt": 1715673600000,
+      "modifiedAt": 1715673600000,
+      "summary": "I2C debugging, sensor bring-up",
+      "entries": [
+        {
+          "id": "dn_13",
+          "time": "09:30",
+          "text": "I2C scan on Rev 2.0 \u2014 all 3 devices responding correctly",
+          "done": true,
+          "tags": []
+        },
+        {
+          "id": "dn_14",
+          "time": "10:45",
+          "text": "SHT40 reading temp/humidity \u2014 values match reference meter",
+          "done": true,
+          "tags": []
+        },
+        {
+          "id": "dn_15",
+          "time": "11:30",
+          "text": "LIS3DH self-test passed, configured FIFO for 25Hz",
+          "done": true,
+          "tags": []
+        },
+        {
+          "id": "dn_16",
+          "time": "14:00",
+          "text": "BLE advertising working \u2014 connected from phone at 15m",
+          "done": true,
+          "tags": []
+        },
+        {
+          "id": "dn_17",
+          "time": "15:30",
+          "text": "Noticed 3.3V rail noise during BLE TX \u2014 needs investigation",
+          "done": true,
+          "tags": [
+            "followup"
+          ]
+        },
+        {
+          "id": "dn_18",
+          "time": "16:00",
+          "text": "Ordered additional Rev 2.0 boards from JLCPCB (5 pcs)",
+          "done": true,
+          "tags": []
+        }
+      ]
+    }
+  }
+}

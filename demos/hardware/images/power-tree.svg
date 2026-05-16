@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 240" width="380" height="240">
+  <defs>
+    <marker id="parrow" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+      <path d="M0,0 L7,2.5 L0,5" fill="none" stroke="#1B1A17" stroke-width="1"/>
+    </marker>
+  </defs>
+  <rect x="1" y="1" width="378" height="238" rx="8" fill="#F7F4EE" stroke="#1B1A17" stroke-width="1.5"/>
+
+  <!-- Title -->
+  <text x="190" y="22" text-anchor="middle" font-family="Inter Tight, sans-serif" font-size="11" font-weight="600" fill="#1B1A17">Power Tree — SensorHub Rev 2.1</text>
+
+  <!-- Sources -->
+  <rect x="15" y="50" width="65" height="45" rx="4" fill="#FFFFFF" stroke="#1B1A17" stroke-width="1.2"/>
+  <text x="47" y="68" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="#57544D">USB-C</text>
+  <text x="47" y="82" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="500" fill="#1B1A17">5V</text>
+  <text x="47" y="92" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#9C988E">500mA max</text>
+
+  <rect x="15" y="120" width="65" height="45" rx="4" fill="#FFFFFF" stroke="#1B1A17" stroke-width="1.2"/>
+  <text x="47" y="138" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="#57544D">LiPo</text>
+  <text x="47" y="152" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="500" fill="#1B1A17">3.7V</text>
+  <text x="47" y="162" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#9C988E">500mAh</text>
+
+  <!-- Charger -->
+  <rect x="110" y="55" width="70" height="38" rx="4" fill="#E8F4E8" stroke="#1B1A17" stroke-width="1.2"/>
+  <text x="145" y="72" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#57544D">MCP73831</text>
+  <text x="145" y="85" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" font-weight="500" fill="#1B1A17">Charger IC</text>
+
+  <!-- Buck-Boost -->
+  <rect x="110" y="115" width="70" height="50" rx="4" fill="#E8F4E8" stroke="#1B1A17" stroke-width="1.5"/>
+  <text x="145" y="132" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#57544D">TPS63020</text>
+  <text x="145" y="146" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" font-weight="600" fill="#1B1A17">Buck-Boost</text>
+  <text x="145" y="160" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#9C988E">η 95%</text>
+
+  <!-- 3.3V Rail -->
+  <rect x="215" y="105" width="55" height="35" rx="4" fill="#E8EEF4" stroke="#1B1A17" stroke-width="1.2"/>
+  <text x="242" y="121" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#1B1A17">3.3V</text>
+  <text x="242" y="134" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#9C988E">800mA</text>
+
+  <!-- Loads -->
+  <rect x="300" y="50" width="65" height="30" rx="3" fill="#FFF4E8" stroke="#1B1A17" stroke-width="1"/>
+  <text x="332" y="64" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#57544D">ESP32-S3</text>
+  <text x="332" y="75" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" fill="#9C988E">350mA peak</text>
+
+  <rect x="300" y="90" width="65" height="30" rx="3" fill="#FFF4E8" stroke="#1B1A17" stroke-width="1"/>
+  <text x="332" y="104" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#57544D">SHT40</text>
+  <text x="332" y="115" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" fill="#9C988E">0.4mA</text>
+
+  <rect x="300" y="130" width="65" height="30" rx="3" fill="#FFF4E8" stroke="#1B1A17" stroke-width="1"/>
+  <text x="332" y="144" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#57544D">LIS3DH</text>
+  <text x="332" y="155" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" fill="#9C988E">0.5mA</text>
+
+  <rect x="300" y="170" width="65" height="30" rx="3" fill="#FFF4E8" stroke="#1B1A17" stroke-width="1"/>
+  <text x="332" y="184" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7" fill="#57544D">EEPROM</text>
+  <text x="332" y="195" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="6" fill="#9C988E">5mA write</text>
+
+  <!-- Connections -->
+  <line x1="80" y1="72" x2="110" y2="72" stroke="#1B1A17" stroke-width="1" marker-end="url(#parrow)"/>
+  <line x1="80" y1="142" x2="110" y2="140" stroke="#1B1A17" stroke-width="1" marker-end="url(#parrow)"/>
+  <line x1="145" y1="93" x2="145" y2="115" stroke="#1B1A17" stroke-width="1" marker-end="url(#parrow)"/>
+  <line x1="180" y1="140" x2="215" y2="122" stroke="#1B1A17" stroke-width="1.2" marker-end="url(#parrow)"/>
+  <line x1="270" y1="115" x2="300" y2="65" stroke="#1B1A17" stroke-width="1" marker-end="url(#parrow)"/>
+  <line x1="270" y1="118" x2="300" y2="105" stroke="#1B1A17" stroke-width="1" marker-end="url(#parrow)"/>
+  <line x1="270" y1="122" x2="300" y2="145" stroke="#1B1A17" stroke-width="1" marker-end="url(#parrow)"/>
+  <line x1="270" y1="126" x2="300" y2="185" stroke="#1B1A17" stroke-width="1" marker-end="url(#parrow)"/>
+
+  <!-- Total -->
+  <text x="190" y="230" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="#9C988E">Total budget: ~356mA active | ~12μA deep sleep</text>
+</svg>
