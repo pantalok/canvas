@@ -101,9 +101,16 @@
   .item.text[data-empty]:not(.editing) .text-content::before { content: "Type something..."; color: var(--ink-faint); font-style: italic; font-size: 0.92em; pointer-events: none; }
 
   .item.frame { border-radius: 12px; box-shadow: none; z-index: 0; }
-  .item.locked { cursor: default; pointer-events: none; }
+  .item.locked { cursor: default; }
   .item .lock-icon { position: absolute; top: 8px; right: 8px; pointer-events: none; opacity: 0.5; line-height: 1; font-size: 16px; }
-  .item.in-locked-frame { cursor: default; pointer-events: none; }
+  .item.in-locked-frame { cursor: default; }
+  .locked-overlay { position: absolute; inset: 0; z-index: 99; cursor: default; }
+  .item.locked .docwindow-titlebar,
+  .item.locked .docwindow-pdf-toolbar,
+  .item.locked .pdf-search-results,
+  .item.in-locked-frame .docwindow-titlebar,
+  .item.in-locked-frame .docwindow-pdf-toolbar,
+  .item.in-locked-frame .pdf-search-results { position: relative; z-index: 100; pointer-events: auto; }
   .item:not(.frame):not(.selected) { z-index: 1; }
   .note-badge { position: absolute; bottom: 6px; right: 6px; width: 20px; height: 20px; background: rgba(27,26,23,0.7); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; pointer-events: auto; opacity: 0.7; transition: opacity 0.15s; font-size: 10px; color: #fff; }
   .note-badge:hover { opacity: 1; }
@@ -1469,10 +1476,12 @@ async function mountDocwindowEditor(item, containerEl) {
   }]);
 
   // Prevent canvas keyboard shortcuts from firing when editing
+  // But allow propagation when item is locked so canvas pan/zoom still works
+  const isLocked = () => containerEl.classList.contains('locked') || containerEl.classList.contains('in-locked-frame');
   const stopPropagation = cm.EditorView.domEventHandlers({
-    keydown: (e) => { e.stopPropagation(); },
-    mousedown: (e) => { e.stopPropagation(); },
-    wheel: (e) => { e.stopPropagation(); },
+    keydown: (e) => { if (!isLocked()) e.stopPropagation(); },
+    mousedown: (e) => { if (!isLocked()) e.stopPropagation(); },
+    wheel: (e) => { if (!isLocked()) e.stopPropagation(); },
   });
 
   const view = new cm.EditorView({
@@ -1681,9 +1690,11 @@ async function mountPdfViewer(item, containerEl) {
   viewer.className = 'docwindow-pdf-viewer';
   editorDiv.appendChild(viewer);
 
-  // Stop event propagation on the editor div so canvas pan/drag/zoom don't fire
+  // Stop event propagation so canvas pan/drag/zoom don't fire
+  // editorDiv: only block when unlocked (locked items use overlay for pan/zoom)
+  // toolbar: always block so search/page-nav still works when locked
   ['keydown', 'mousedown', 'pointerdown', 'wheel'].forEach(evt => {
-    editorDiv.addEventListener(evt, e => e.stopPropagation());
+    editorDiv.addEventListener(evt, e => { if (!containerEl.classList.contains('locked') && !containerEl.classList.contains('in-locked-frame')) e.stopPropagation(); });
     toolbar.addEventListener(evt, e => e.stopPropagation());
   });
 
@@ -2181,8 +2192,9 @@ async function mountDocxViewer(item, containerEl) {
   editorDiv.appendChild(viewer);
 
   // Stop event propagation on editor div so canvas pan/drag/zoom don't fire
+  // But allow propagation when item is locked so canvas pan/zoom still works
   ['keydown', 'mousedown', 'pointerdown', 'wheel'].forEach(evt => {
-    editorDiv.addEventListener(evt, e => e.stopPropagation());
+    editorDiv.addEventListener(evt, e => { if (!containerEl.classList.contains('locked') && !containerEl.classList.contains('in-locked-frame')) e.stopPropagation(); });
   });
 
   // Hide dirty dot (read-only)
@@ -3016,11 +3028,20 @@ function renderAll() {
     if (el.classList.contains('docwindow')) destroyDocwindowEditor(removedId);
     el.remove(); itemElements.delete(removedId);
   }
-  // Apply locked state classes
+  // Apply locked state classes and overlay for pan/zoom passthrough
   for (const item of state.items) {
     const el = itemElements.get(item.id); if (!el) continue;
     el.classList.toggle('locked', !!item.locked);
     el.classList.toggle('in-locked-frame', !item.locked && isContainedInLockedFrame(item.id));
+    const needsOverlay = item.locked || (!item.locked && isContainedInLockedFrame(item.id));
+    let overlay = el.querySelector('.locked-overlay');
+    if (needsOverlay && !overlay) {
+      overlay = document.createElement('div');
+      overlay.className = 'locked-overlay';
+      el.appendChild(overlay);
+    } else if (!needsOverlay && overlay) {
+      overlay.remove();
+    }
   }
   updateSelectionVisuals(); applyTransform(); updateContextToolbar(); applySearchFilter();
   if ($('sidebar').classList.contains('visible')) renderSidebar();
@@ -3675,24 +3696,38 @@ function showItemContextMenu(x, y, item) {
 }
 
 function attachItemHandlers(el, id) {
+  // Wheel on locked items should zoom canvas, not scroll internal content
+  el.addEventListener('wheel', (e) => {
+    const _item = state.items.find(i => i.id === id);
+    if (_item && (_item.locked || el.classList.contains('in-locked-frame'))) {
+      e.preventDefault();
+      e.stopPropagation();
+      const factor = Math.exp(-e.deltaY * 0.001);
+      const w = screenToWorld(e.clientX, e.clientY);
+      state.zoom = Math.max(0.1, Math.min(5, state.zoom * factor));
+      state.pan.x = e.clientX - w.x * state.zoom;
+      state.pan.y = e.clientY - w.y * state.zoom;
+      applyTransform(); scheduleSave();
+    }
+  }, { passive: false });
   el.onmousedown = (e) => {
     if (el.classList.contains('editing')) return;
     if (e.target.classList.contains('handle')) return;
-    // Docwindow: only drag from titlebar, not from editor area; block drag when maximized
-    if (el.classList.contains('docwindow')) {
-      if (el.classList.contains('maximized')) return;
-      const titlebar = el.querySelector('.docwindow-titlebar');
-      if (!titlebar || !titlebar.contains(e.target)) return;
-    }
     // Locked item: left-click → pan canvas, right-click → contextmenu handles it
     const _item = state.items.find(i => i.id === id);
-    if (_item && _item.locked) {
+    if (_item && (_item.locked || el.classList.contains('in-locked-frame'))) {
       if (e.button === 0) {
         isPanning = true;
         panStart = { x: e.clientX, y: e.clientY, px: state.pan.x, py: state.pan.y, button: e.button };
         viewport.classList.add('panning');
       }
       return;
+    }
+    // Docwindow: only drag from titlebar, not from editor area; block drag when maximized
+    if (el.classList.contains('docwindow')) {
+      if (el.classList.contains('maximized')) return;
+      const titlebar = el.querySelector('.docwindow-titlebar');
+      if (!titlebar || !titlebar.contains(e.target)) return;
     }
     if (e.button !== 0) return;
     e.stopPropagation();
@@ -4201,6 +4236,7 @@ viewport.ondblclick = (e) => {
 
 viewport.onmousedown = (e) => {
   if (document.querySelector('.item.docwindow.maximized')) return;
+  if (isPanning) return;
   if (e.target !== viewport && e.target !== world) return;
   // Shift + left drag → lasso select
   if (e.button === 0 && e.shiftKey) {
